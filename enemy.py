@@ -21,7 +21,7 @@ class Goomba:
         if self.death:
             # del(self) # 이거 되냐?
             pass
-        if abs(character_x - self.x) < 50:
+        if abs(900 - self.x) < 50:
             self.status = 1
         else:
             self.status = 0
@@ -75,9 +75,9 @@ class Koopa:
             pass
 
         if self.direction == True:
-            self.x -= 5
+            self.x -= 3
         else:
-            self.x += 5
+            self.x += 3
         if self.y > self.floor:
             self.velocity -= g
             self.y += self.velocity

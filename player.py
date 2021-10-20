@@ -26,6 +26,7 @@ class Mario:
             self.frame_x = 0
 
         if self.y > self.floor:
+            self.frame_x = 3
             self.velocity -= g
         if self.jump:
             self.velocity = 40
@@ -36,6 +37,7 @@ class Mario:
         if self.y < self.floor:
             self.y = self.floor
             self.velocity = 0
+            self.frame_x = 0
 
     def draw(self):
         if self.direction:
