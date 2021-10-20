@@ -46,9 +46,9 @@ while running:
     koopa.update()
     h_bro.update()
 
-    # character.draw()
-    # goomba.draw()
-    # koopa.draw()
+    character.draw()
+    goomba.draw()
+    koopa.draw()
     h_bro.draw()
 
     update_canvas()
