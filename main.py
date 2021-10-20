@@ -35,15 +35,18 @@ open_canvas(WIDTH, HEIGHT)
 running = True
 character = player.Mario()
 goomba = enemy.Goomba()
+koopa =enemy.Koopa()
 
 while running:
     clear_canvas()
 
     character.update()
     goomba.update()
+    koopa.update()
 
-    character.draw()
-    goomba.draw()
+    # character.draw()
+    # goomba.draw()
+    koopa.draw()
 
     update_canvas()
     delay(0.05)

@@ -41,10 +41,10 @@ class Goomba:
 
         if self.x < 0:
             self.x = 0
-            self.direction = 1
+            self.direction = False
         if self.x > 800:
             self.x = 800
-            self.direction = 0
+            self.direction = True
         if self.y < self.floor:
             self.y = self.floor
             self.velocity = 0
@@ -56,6 +56,49 @@ class Goomba:
 
     # def death_check(self):
     #     self.death = True
+
+class Koopa:
+    def __init__(self):
+        self.image = load_image('enemis.png')
+        self.x, self.y = 400, 300
+        self.velocity = 0
+        self.floor = 20
+        self.frame = 5
+        self.width, self.height = 29, 29
+        self.status = 0 # 0 alive 1 shell
+        self.direction = True # T left F right
+        self.death = False
+
+    def update(self):
+        if self.death:
+            # del(self) # 이거 되냐?
+            pass
+
+        if self.direction == True:
+            self.x -= 5
+        else:
+            self.x += 5
+        if self.y > self.floor:
+            self.velocity -= g
+            self.y += self.velocity
+
+        if self.x < 0:
+            self.x = 0
+            self.direction = False
+        if self.x > 800:
+            self.x = 800
+            self.direction = True
+        if self.y < self.floor:
+            self.y = self.floor
+            self.velocity = 0
+
+        self.frame = (self.frame - 5 + 1) % 2 + 5
+
+    def draw(self):
+        if self.direction == True:
+            self.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+        else:
+            self.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
 
 # def handle_events():
 #     global running
