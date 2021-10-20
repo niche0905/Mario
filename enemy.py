@@ -89,4 +89,4 @@ character_x, chararcter_y = 800, 30
 #     handle_events()
 
 
-close_canvas()
+# close_canvas()

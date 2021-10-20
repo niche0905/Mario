@@ -1,5 +1,5 @@
 from pico2d import *
-import math
+# import math
 
 g = 10
 
@@ -13,7 +13,7 @@ class Mario:
         self.frame_x, self.frame_y = 0, 5
         self.width, self.height = 64, 85
         self.velocity = 0
-        self.floor = 40
+        self.floor = 30
 
     def update(self):
         if self.go:
@@ -23,28 +23,32 @@ class Mario:
                 self.x += 7
             self.frame_x = (self.frame_x + 1) % 3
         else:
-            frame_x = 0
+            self.frame_x = 0
 
         if self.y > self.floor:
             self.velocity -= g
         if self.jump:
             self.velocity = 40
             self.jump = False
-        elif self.y < self.floor:
+
+        self.y += self.velocity
+
+        if self.y < self.floor:
             self.y = self.floor
             self.velocity = 0
-        self.y += self.velocity
 
     def draw(self):
         if self.direction:
-            self.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x, self.y)
+            self.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width, self.height)
         else:
-            self.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x, self.y)
+            self.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width, self.height)
 
 
-# mario = Mario()
+# image = load_image('mario2.png')
+
+#mario = Mario()
 #
-# open_canvas(800,600)
+# open_canvas(800, 600)
 #
 # clear_canvas()
 # mario.draw()
