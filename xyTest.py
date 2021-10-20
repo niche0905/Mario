@@ -18,10 +18,10 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
                 running = False
-            elif event.key == SDLK_LEFT:
+            elif event.key == SDLK_LEFT and go == False:
                 look = True
                 go = True
-            elif event.key == SDLK_RIGHT:
+            elif event.key == SDLK_RIGHT and go == False:
                 look = False
                 go = True
             elif event.key == SDLK_UP:
@@ -67,8 +67,10 @@ while running:
         y = 40
         down_vector = 0
     y += down_vector
-    mario.clip_draw(frame_x * width + int((frame_x + 1) * 0.5), frame_y * height, width, height, x, y)
-    # mario.clip_composite_draw(frame_x * width + int((frame_x + 1) * 0.5), frame_y * height, width, height, math.radians(0), True, x, y)
+    if look:
+        mario.clip_draw(frame_x * width + int((frame_x + 1) * 0.5), frame_y * height, width, height, x, y)
+    else:
+        mario.clip_composite_draw(frame_x * width + int((frame_x + 1) * 0.5), frame_y * height, width, height, math.radians(0), 'h', x, y, width, height)
     update_canvas()
     delay(0.05)
     handle_events()
