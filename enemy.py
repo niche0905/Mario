@@ -3,6 +3,8 @@ from pico2d import *
 
 # WIDTH, HEIGHT = 800, 600
 
+g = 10
+
 class Goomba:
     def __init__(self):
         self.image = load_image('enemis.png')
@@ -12,12 +14,13 @@ class Goomba:
         self.frame = 0
         self.width, self.height = 29, 29
         self.status = 0 # 0 seek 1 follow
-        self.direction = 0 # 0 left 1 right
+        self.direction = True # T left F right
         self.death = False
 
     def update(self):
         if self.death:
-            del(self) # 이거 되냐?
+            # del(self) # 이거 되냐?
+            pass
         if abs(character_x - self.x) < 50:
             self.status = 1
         else:
@@ -28,13 +31,13 @@ class Goomba:
             else:
                 self.direction = 1
 
-        if self.direction == 0:
+        if self.direction == True:
             self.x -= 5
         else:
             self.x += 5
         if self.y > self.floor:
-            self.velocity += 10
-            self.y -= self.velocity
+            self.velocity -= g
+            self.y += self.velocity
 
         if self.x < 0:
             self.x = 0
@@ -51,8 +54,8 @@ class Goomba:
     def draw(self):
         self.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x, self.y, self.width * 2, self.height * 2)
 
-    def death_check(self):
-        self.death = True
+    # def death_check(self):
+    #     self.death = True
 
 def handle_events():
     global running
@@ -71,13 +74,13 @@ def handle_events():
 # running = True
 
 # goomba = Goomba()
-# character_x, chararcter_y = 800, 30
+character_x, chararcter_y = 800, 30
 
 # while running:
 #     clear_canvas()
 #
 #     goomba.update()
-# 
+#
 #     goomba.draw()
 #
 #     update_canvas()
