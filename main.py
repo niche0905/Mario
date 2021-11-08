@@ -1,6 +1,7 @@
 from pico2d import *
 import player
 import enemy
+import object
 
 def handle_events():
     # fill here
@@ -37,6 +38,8 @@ character = player.Mario()
 goomba = enemy.Goomba()
 koopa = enemy.Koopa()
 h_bro = enemy.Hammer_bro()
+coin = object.coin()
+mushroom = object.mushroom()
 
 while running:
     clear_canvas()
@@ -45,11 +48,14 @@ while running:
     goomba.update()
     koopa.update()
     h_bro.update()
+    mushroom.update()
 
     character.draw()
     goomba.draw()
     koopa.draw()
     h_bro.draw()
+    coin.draw()
+    mushroom.draw()
 
     update_canvas()
     delay(0.05)
