@@ -4,8 +4,10 @@ from pico2d import *
 g = 10
 
 class Mario:
+    image = None
     def __init__(self):
-        self.image = load_image('mario2.png')
+        if Mario.image == None:
+            Mario.image = load_image('mario2.png')
         self.x, self.y = 400, 300
         self.direction = True # T left F right
         self.go = False
@@ -41,9 +43,9 @@ class Mario:
 
     def draw(self):
         if self.direction:
-            self.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width, self.height)
+            Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width, self.height)
         else:
-            self.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width, self.height)
+            Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width, self.height)
 
 
 # image = load_image('mario2.png')

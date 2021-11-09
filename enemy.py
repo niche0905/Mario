@@ -6,8 +6,10 @@ from pico2d import *
 g = 10
 
 class Goomba:
+    image = None
     def __init__(self):
-        self.image = load_image('enemis.png')
+        if Goomba.image == None:
+            Goomba.image = load_image('enemis.png')
         self.x, self.y = 400, 300
         self.velocity = 0
         self.floor = 10
@@ -52,14 +54,16 @@ class Goomba:
         self.frame = (self.frame + 1) % 2
 
     def draw(self):
-        self.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x, self.y, self.width * 2, self.height * 2)
+        Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x, self.y, self.width * 2, self.height * 2)
 
     # def death_check(self):
     #     self.death = True
 
 class Koopa:
+    image = None
     def __init__(self):
-        self.image = load_image('enemis.png')
+        if Koopa.image == None:
+            Koopa.image = load_image('enemis.png')
         self.x, self.y = 400, 300
         self.velocity = 0
         self.floor = 20
@@ -120,14 +124,16 @@ class Koopa:
     def draw(self):
         if self.status == 0:
             if self.direction == True:
-                self.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+                Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
             else:
-                self.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
+                Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
         else:
-            self.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+            Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
 class Hammer_bro:
+    image = None
     def __init__(self):
-        self.image = load_image('enemis.png')
+        if Hammer_bro.image == None:
+            Hammer_bro.image = load_image('enemis.png')
         self.x, self.y = 400, 300
         self.velocity = 0
         self.floor = 20
@@ -182,20 +188,20 @@ class Hammer_bro:
 
     def draw(self):
         if self.direction == True:
-            self.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+            Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
         else:
-            self.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
+            Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
         if self.status == 1:
             if self.hammer_velocity > 0:
                 if self.hammer_frame >= 2:
-                    self.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
-                    self.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
             else:
                 if self.hammer_frame >= 2:
-                    self.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
-                    self.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
 # def handle_events():
 #     global running
 #
