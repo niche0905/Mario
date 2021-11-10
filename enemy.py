@@ -129,6 +129,7 @@ class Koopa:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
         else:
             Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+
 class Hammer_bro:
     image = None
     def __init__(self):

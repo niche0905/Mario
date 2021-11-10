@@ -1,5 +1,6 @@
 from pico2d import *
 # import math
+import main
 
 g = 10
 
@@ -12,10 +13,10 @@ class Mario:
         self.direction = True # T left F right
         self.go = False
         self.jump = False
-        self.frame_x, self.frame_y = 0, 5
+        self.frame_x, self.frame_y = 0, 7
         self.width, self.height = 64, 85
         self.velocity = 0
-        self.floor = 30
+        self.floor = 25
 
     def update(self):
         if self.go:
@@ -47,6 +48,8 @@ class Mario:
         else:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width, self.height)
 
+    def crash_check(self):
+        pass
 
 # image = load_image('mario2.png')
 
