@@ -8,6 +8,9 @@ class coin:
         self.x, self.y = 500, 300
         self.width, self.height = 48, 48
 
+    def update(self):
+        pass
+
     def draw(self):
         coin.image.clip_draw(1 * self.width, 1 * self.height + 16, self.width, self.height, self.x, self.y, self.width, self.height)
 

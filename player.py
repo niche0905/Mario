@@ -1,6 +1,5 @@
 from pico2d import *
 # import math
-import main
 
 g = 10
 
