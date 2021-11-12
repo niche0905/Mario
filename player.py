@@ -12,6 +12,8 @@ class Mario:
         self.direction = True # T left F right
         self.go = False
         self.jump = False
+        self.hold = False
+        self.spec = False
         self.frame_x, self.frame_y = 0, 7
         self.width, self.height = 64, 85
         self.velocity = 0
@@ -23,21 +25,31 @@ class Mario:
                 self.x -= 7
             else:
                 self.x += 7
-            self.frame_x = (self.frame_x + 1) % 3
+            if self.frame_x != 3 and self.frame_x != 7:
+                self.frame_x = (self.frame_x + 1) % 3
         else:
-            self.frame_x = 0
+            if self.frame_x != 3 and self.frame_x != 7:
+                self.frame_x = 0
 
         if self.y > self.floor:
-            self.frame_x = 3
             self.velocity -= g
+            if self.frame_x == 7:
+                self.velocity -= g
         if self.jump:
             self.velocity = 40
+            self.frame_x = 3
             self.jump = False
+            self.hold = True
+        if self.spec:
+            self.velocity = 0
+            self.spec = False
+            self.frame_x = 7
 
         self.y += self.velocity
 
         if self.y < self.floor:
             self.y = self.floor
+            self.hold = False
             self.velocity = 0
             self.frame_x = 0
 

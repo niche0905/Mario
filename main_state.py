@@ -77,6 +77,9 @@ def handle_events():
             elif event.key == SDLK_UP:
                 if character.y == character.floor:
                     character.jump = True
+            elif event.key == SDLK_DOWN:
+                if character.hold == True:
+                    character.spec = True
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_LEFT and character.direction == True:
                 character.go = False
