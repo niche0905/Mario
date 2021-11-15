@@ -17,6 +17,9 @@ from object import coin
 from object import mushroom
 
 from block import hard_brick
+from block import grass_left
+from block import grass_mid
+from block import grass_right
 
 name = "MainState"
 
@@ -28,6 +31,9 @@ h_bro = None
 c1 = None
 m1 = None
 b1 = None
+b2 = None
+b3 = None
+b4 = None
 
 def enter():
     global character
@@ -36,20 +42,23 @@ def enter():
     global h_bro
     global c1
     global m1
-    global b1
+    global b1, b2, b3, b4
     character = Mario()
     goomba = Goomba()
     koopa = Koopa()
     h_bro = Hammer_bro()
     c1 = coin()
     m1 = mushroom()
-    b1 = hard_brick()
     game_world.add_object(character, 0)
     game_world.add_object(goomba, 0)
     game_world.add_object(koopa, 0)
     game_world.add_object(h_bro, 0)
     game_world.add_object(c1, 0)
     game_world.add_object(m1, 0)
+    b1 = hard_brick()
+    b2 = grass_left()
+    b3 = grass_mid()
+    b4 = grass_right()
 
 def exit():
     game_world.clear()
@@ -102,6 +111,9 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     b1.draw()
+    b2.draw()
+    b3.draw()
+    b4.draw()
     update_canvas()
 
 
