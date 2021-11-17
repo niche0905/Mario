@@ -109,6 +109,12 @@ def handle_events():
             elif event.key == SDLK_DOWN:
                 if character.hold == True:
                     character.spec = True
+            elif event.key == SDLK_1 and character.frame_y == 7:
+                character.frame_y = 9
+                character.floor = 8
+            elif event.key == SDLK_2 and character.frame_y == 9:
+                character.frame_y = 7
+                character.floor = 25
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_LEFT and character.direction == True:
                 character.go = False

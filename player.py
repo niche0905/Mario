@@ -26,7 +26,10 @@ class Mario:
             else:
                 self.x += 7
             if self.frame_x != 3 and self.frame_x != 7:
-                self.frame_x = (self.frame_x + 1) % 3
+                if self.frame_y == 7:
+                    self.frame_x = (self.frame_x + 1) % 3
+                elif self.frame_y == 9:
+                    self.frame_x = (self.frame_x + 1) % 2
         else:
             if self.frame_x != 3 and self.frame_x != 7:
                 self.frame_x = 0
