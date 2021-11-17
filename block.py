@@ -2,10 +2,10 @@ from pico2d import *
 
 class hard_brick:
     image = None
-    def __init__(self):
+    def __init__(self, x = 50, y = 450):
         if hard_brick.image == None:
             hard_brick.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 50, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -15,10 +15,10 @@ class hard_brick:
 
 class soft_brick:
     image = None
-    def __init__(self):
+    def __init__(self, x = 350, y = 450):
         if grass_right.image == None:
             grass_right.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 350, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -28,10 +28,10 @@ class soft_brick:
 
 class grass_left:
     image = None
-    def __init__(self):
+    def __init__(self, x = 150, y = 450):
         if grass_left.image == None:
             grass_left.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 150, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -41,10 +41,10 @@ class grass_left:
 
 class grass_mid:
     image = None
-    def __init__(self):
+    def __init__(self, x = 200, y = 450):
         if grass_mid.image == None:
             grass_mid.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 200, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -54,10 +54,10 @@ class grass_mid:
 
 class grass_right:
     image = None
-    def __init__(self):
+    def __init__(self, x = 250, y = 450):
         if grass_right.image == None:
             grass_right.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 250, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -67,10 +67,10 @@ class grass_right:
 
 class random_block:
     image = None
-    def __init__(self):
+    def __init__(self, x = 450, y = 450):
         if grass_right.image == None:
             grass_right.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 450, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
         self.frame = 0 # 0 1 2 3
 
     def update(self):
@@ -81,10 +81,10 @@ class random_block:
 
 class mush_left:
     image = None
-    def __init__(self):
+    def __init__(self, x = 550, y = 450):
         if grass_left.image == None:
             grass_left.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 550, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -94,10 +94,10 @@ class mush_left:
 
 class mush_mid:
     image = None
-    def __init__(self):
+    def __init__(self, x = 600, y = 450):
         if grass_mid.image == None:
             grass_mid.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 600, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
@@ -107,13 +107,65 @@ class mush_mid:
 
 class mush_right:
     image = None
-    def __init__(self):
+    def __init__(self, x = 650, y = 450):
         if grass_right.image == None:
             grass_right.image = load_image('blocks.png')
-        self.x, self.y, self.width, self.height = 650, 450, 50, 50
+        self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
-    
+
     def draw(self):
         grass_right.image.clip_draw(521, 683, 28, 28, self.x, self.y, self.width, self.height)
+
+class pipe_left:
+    image = None
+    def __init__(self, x = 650, y = 350):
+        if grass_right.image == None:
+            grass_right.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_right.image.clip_draw(554, 198, 28, 28, self.x, self.y, self.width, self.height)
+
+class pipe_right:
+    image = None
+    def __init__(self, x = 700, y = 350):
+        if grass_right.image == None:
+            grass_right.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_right.image.clip_draw(587, 198, 28, 28, self.x, self.y, self.width, self.height)
+
+class mid_left:
+    image = None
+    def __init__(self, x = 650, y = 300):
+        if grass_right.image == None:
+            grass_right.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_right.image.clip_draw(554, 165, 28, 28, self.x, self.y, self.width, self.height)
+
+class mid_right:
+    image = None
+    def __init__(self, x = 700, y = 300):
+        if grass_right.image == None:
+            grass_right.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_right.image.clip_draw(587, 165, 28, 28, self.x, self.y, self.width, self.height)

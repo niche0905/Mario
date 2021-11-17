@@ -5,8 +5,10 @@ import os
 from pico2d import *
 
 import game_framework
+import map_1
+import map_2
+import map_3
 
-from pico2d import *
 import game_world
 
 from player import Mario
@@ -25,6 +27,10 @@ from block import random_block
 from block import mush_left
 from block import mush_mid
 from block import mush_right
+from block import pipe_left
+from block import pipe_right
+from block import mid_left
+from block import mid_right
 
 name = "MainState"
 
@@ -44,6 +50,10 @@ b6 = None
 b7 = None
 b8 = None
 b9 = None
+b10 = None
+b11 = None
+b12 = None
+b13 = None
 
 def enter():
     global character
@@ -52,7 +62,7 @@ def enter():
     global h_bro
     global c1
     global m1
-    global b1, b2, b3, b4, b5, b6, b7, b8, b9
+    global b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13
     character = Mario()
     goomba = Goomba()
     koopa = Koopa()
@@ -74,10 +84,14 @@ def enter():
     b7 = mush_left()
     b8 = mush_mid()
     b9 = mush_right()
+    b10 = pipe_left()
+    b11 = pipe_right()
+    b12 = mid_left()
+    b13 = mid_right()
 
 def exit():
     game_world.clear()
-    global b1, b2, b3, b4, b5, b6, b7, b8, b9
+    global b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13
     del(b1)
     del(b2)
     del(b3)
@@ -87,6 +101,10 @@ def exit():
     del(b7)
     del(b8)
     del(b9)
+    del(b10)
+    del(b11)
+    del(b12)
+    del(b13)
 
 
 def pause():
@@ -125,11 +143,11 @@ def handle_events():
                 character.frame_y = 7
                 character.floor = 25
             elif event.key == SDLK_3:
-                pass
+                game_framework.change_state(map_1)
             elif event.key == SDLK_4:
-                pass
+                game_framework.change_state(map_2)
             elif event.key == SDLK_5:
-                pass
+                game_framework.change_state(map_3)
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_LEFT and character.direction == True:
                 character.go = False
@@ -156,6 +174,10 @@ def draw():
     b7.draw()
     b8.draw()
     b9.draw()
+    b10.draw()
+    b11.draw()
+    b12.draw()
+    b13.draw()
     update_canvas()
 
 
