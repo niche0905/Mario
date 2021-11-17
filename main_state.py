@@ -77,7 +77,16 @@ def enter():
 
 def exit():
     game_world.clear()
-
+    global b1, b2, b3, b4, b5, b6, b7, b8, b9
+    del(b1)
+    del(b2)
+    del(b3)
+    del(b4)
+    del(b5)
+    del(b6)
+    del(b7)
+    del(b8)
+    del(b9)
 
 
 def pause():
@@ -115,6 +124,12 @@ def handle_events():
             elif event.key == SDLK_2 and character.frame_y == 9:
                 character.frame_y = 7
                 character.floor = 25
+            elif event.key == SDLK_3:
+                pass
+            elif event.key == SDLK_4:
+                pass
+            elif event.key == SDLK_5:
+                pass
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_LEFT and character.direction == True:
                 character.go = False
