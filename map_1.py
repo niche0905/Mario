@@ -29,30 +29,30 @@ def enter():
     global camera_left, camera_right
     camera_left, camera_right = 0, 800
     global blocks
-    # blocks.append(grass_mid(25, 25))
-    # blocks.append(grass_mid(75, 25))
-    # blocks.append(grass_mid(125, 25))
-    # blocks.append(grass_mid(175, 25))
-    # blocks.append(grass_mid(225, 25))
-    # blocks.append(grass_mid(275, 25))
-    # blocks.append(grass_mid(325, 25))
-    # blocks.append(grass_mid(375, 25))
-    # blocks.append(grass_mid(425, 25))
-    # blocks.append(grass_mid(475, 25))
-    # blocks.append(grass_mid(525, 25))
-    # blocks.append(grass_mid(575, 25))
-    # blocks.append(grass_mid(625, 25))
-    # blocks.append(grass_mid(675, 25))
-    # blocks.append(grass_mid(725, 25))
-    # blocks.append(grass_mid(775, 25))
-    #
-    # blocks.append(soft_brick(375, 325))
-    # blocks.append(soft_brick(425, 325))
-    # blocks.append(soft_brick(475, 325))
-    # blocks.append(random_block(525, 325))
-    # blocks.append(soft_brick(575, 325))
-    # blocks.append(soft_brick(625, 325))
-    # blocks.append(soft_brick(675, 325))
+    blocks.append(grass_mid(25, 25)) # 0
+    blocks.append(grass_mid(75, 25))
+    blocks.append(grass_mid(125, 25))
+    blocks.append(grass_mid(175, 25))
+    blocks.append(grass_mid(225, 25))
+    blocks.append(grass_mid(275, 25))
+    blocks.append(grass_mid(325, 25))
+    blocks.append(grass_mid(375, 25))
+    blocks.append(grass_mid(425, 25))
+    blocks.append(grass_mid(475, 25))
+    blocks.append(grass_mid(525, 25))
+    blocks.append(grass_mid(575, 25))
+    blocks.append(grass_mid(625, 25))
+    blocks.append(grass_mid(675, 25))
+    blocks.append(grass_mid(725, 25))
+    blocks.append(grass_mid(775, 25))
+
+    blocks.append(soft_brick(375, 325))
+    blocks.append(soft_brick(425, 325))
+    blocks.append(soft_brick(475, 325))
+    blocks.append(random_block(525, 325))
+    blocks.append(soft_brick(575, 325))
+    blocks.append(soft_brick(625, 325))
+    blocks.append(soft_brick(675, 325))
 
     # blocks.append(grass_mid(25, 25)) # 800
     # blocks.append(grass_mid(75, 25))
@@ -132,14 +132,14 @@ def enter():
     # blocks.append(grass_mid(725, 25))
     # blocks.append(grass_mid(775, 25))
 
-    blocks.append(grass_right(25, 25))  # 4000
-    blocks.append(grass_left(225, 25))
-    blocks.append(grass_left(275, 75))
-    blocks.append(grass_left(325, 125))
-    blocks.append(grass_left(375, 175))
-    blocks.append(grass_left(425, 225))
-    blocks.append(grass_left(475, 275))
-    blocks.append(grass_left(525, 325))
+    # blocks.append(grass_right(25, 25))  # 4000
+    # blocks.append(grass_left(225, 25))
+    # blocks.append(grass_left(275, 75))
+    # blocks.append(grass_left(325, 125))
+    # blocks.append(grass_left(375, 175))
+    # blocks.append(grass_left(425, 225))
+    # blocks.append(grass_left(475, 275))
+    # blocks.append(grass_left(525, 325))
 
     game_world.add_objects(blocks, 0)
 

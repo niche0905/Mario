@@ -41,19 +41,7 @@ koopa = None
 h_bro = None
 c1 = None
 m1 = None
-b1 = None
-b2 = None
-b3 = None
-b4 = None
-b5 = None
-b6 = None
-b7 = None
-b8 = None
-b9 = None
-b10 = None
-b11 = None
-b12 = None
-b13 = None
+blocks = []
 
 def enter():
     global character
@@ -62,7 +50,7 @@ def enter():
     global h_bro
     global c1
     global m1
-    global b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13
+    global blocks
     character = Mario()
     goomba = Goomba()
     koopa = Koopa()
@@ -75,36 +63,25 @@ def enter():
     game_world.add_object(h_bro, 0)
     game_world.add_object(c1, 0)
     game_world.add_object(m1, 0)
-    b1 = hard_brick()
-    b2 = grass_left()
-    b3 = grass_mid()
-    b4 = grass_right()
-    b5 = soft_brick()
-    b6 = random_block()
-    b7 = mush_left()
-    b8 = mush_mid()
-    b9 = mush_right()
-    b10 = pipe_left()
-    b11 = pipe_right()
-    b12 = mid_left()
-    b13 = mid_right()
+    blocks.append(hard_brick(775, 25))
+    blocks.append(grass_left())
+    blocks.append(grass_mid())
+    blocks.append(grass_right())
+    blocks.append(soft_brick())
+    blocks.append(random_block())
+    blocks.append(mush_left())
+    blocks.append(mush_mid())
+    blocks.append(mush_right())
+    blocks.append(pipe_left())
+    blocks.append(pipe_right())
+    blocks.append(mid_left())
+    blocks.append(mid_right())
+    game_world.add_objects(blocks, 0)
 
 def exit():
     game_world.clear()
-    global b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13
-    del(b1)
-    del(b2)
-    del(b3)
-    del(b4)
-    del(b5)
-    del(b6)
-    del(b7)
-    del(b8)
-    del(b9)
-    del(b10)
-    del(b11)
-    del(b12)
-    del(b13)
+    global blocks
+    del(blocks)
 
 
 def pause():
@@ -159,27 +136,24 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    b6.update()
+
+    for b in blocks:
+        if collide(character, b):
+            print("COLLISION")
 
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
         game_object.draw()
-    b1.draw()
-    b2.draw()
-    b3.draw()
-    b4.draw()
-    b5.draw()
-    b6.draw()
-    b7.draw()
-    b8.draw()
-    b9.draw()
-    b10.draw()
-    b11.draw()
-    b12.draw()
-    b13.draw()
     update_canvas()
 
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
 
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
 
-
+    return True

@@ -61,9 +61,13 @@ class Mario:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width, self.height)
         else:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width, self.height)
+        draw_rectangle(*self.get_bb())
 
-    def crash_check(self):
-        pass
+    def get_bb(self):
+        if self.frame_y == 7:
+            return self.x - 32 / 2, self.y - 60 / 2, self.x + 32 / 2, self.y + 60 / 2
+        elif self.frame_y == 9:
+            return self.x - 32 / 2, self.y - 30 / 2, self.x + 32 / 2, self.y + 50 / 2
 
 # image = load_image('mario2.png')
 
