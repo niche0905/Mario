@@ -64,6 +64,22 @@ def enter():
     game_world.add_object(c1, 0)
     game_world.add_object(m1, 0)
     blocks.append(hard_brick(775, 25))
+    blocks.append(grass_mid(25, -25))
+    blocks.append(grass_mid(75, -25))
+    blocks.append(grass_mid(125, -25))
+    blocks.append(grass_mid(175, -25))
+    blocks.append(grass_mid(225, -25))
+    blocks.append(grass_mid(275, -25))
+    blocks.append(grass_mid(325, -25))
+    blocks.append(grass_mid(375, -25))
+    blocks.append(grass_mid(425, -25))
+    blocks.append(grass_mid(475, -25))
+    blocks.append(grass_mid(525, -25))
+    blocks.append(grass_mid(575, -25))
+    blocks.append(grass_mid(625, -25))
+    blocks.append(grass_mid(675, -25))
+    blocks.append(grass_mid(725, -25))
+    blocks.append(grass_mid(775, -25))
     blocks.append(grass_left())
     blocks.append(grass_mid())
     blocks.append(grass_right())
@@ -108,7 +124,7 @@ def handle_events():
                 character.direction = False
                 character.go = True
             elif event.key == SDLK_UP:
-                if character.y == character.floor:
+                if character.hold == False:
                     character.jump = True
             elif event.key == SDLK_DOWN:
                 if character.hold == True:
@@ -139,7 +155,18 @@ def update():
 
     for b in blocks:
         if collide(character, b):
-            print("COLLISION")
+            if character.velocity < 0:
+                left_c, bottom_c, right_c, top_c = character.get_bb()
+                left_b, bottom_b, right_b, top_b = b.get_bb()
+                mid_x = (left_c + right_c) / 2
+                if left_b < mid_x and mid_x < right_b:
+                    character.db_left, character.db_bottom, character.db_right, character.db_top = b.get_bb()
+                if character.y < character.floor + top_b:
+                    character.y = character.floor + top_b
+                    character.hold = False
+                    character.velocity = 0
+                    character.frame_x = 0
+
 
 def draw():
     clear_canvas()
@@ -151,9 +178,13 @@ def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
 
-    if left_a > right_b: return False
-    if right_a < left_b: return False
-    if top_a < bottom_b: return False
-    if bottom_a > top_b: return False
+    if left_a >= right_b:
+        return False
+    if right_a <= left_b:
+        return False
+    if top_a <= bottom_b:
+        return False
+    if bottom_a >= top_b:
+        return False
 
     return True

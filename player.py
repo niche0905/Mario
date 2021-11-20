@@ -12,12 +12,13 @@ class Mario:
         self.direction = True # T left F right
         self.go = False
         self.jump = False
-        self.hold = False
+        self.hold = True
         self.spec = False
         self.frame_x, self.frame_y = 0, 7
         self.width, self.height = 64, 85
         self.velocity = 0
         self.floor = 25
+        self.db_left, self.db_bottom, self.db_right, self.db_top = 0, 0, 0, 0
 
     def update(self):
         if self.go:
@@ -34,12 +35,8 @@ class Mario:
             if self.frame_x != 3 and self.frame_x != 7:
                 self.frame_x = 0
 
-        if self.y > self.floor:
-            self.velocity -= g
-            if self.frame_x == 7:
-                self.velocity -= g
         if self.jump:
-            self.velocity = 40
+            self.velocity = 50
             self.frame_x = 3
             self.jump = False
             self.hold = True
@@ -48,7 +45,27 @@ class Mario:
             self.spec = False
             self.frame_x = 7
 
-        self.y += self.velocity
+        if self.hold:
+            self.velocity -= g
+            if self.frame_x == 7:
+                self.velocity -= g
+            self.y += self.velocity
+        else:
+            left_a, bottom_a, right_a, top_a = self.get_bb()
+
+            if left_a >= self.db_right:
+                self.hold = True
+            else:
+                if right_a <= self.db_left:
+                    self.hold = True
+                else:
+                    if top_a <= self.db_bottom:
+                        self.hold = True
+                    else:
+                        if bottom_a >= self.db_top:
+                            self.hold = True
+                        else:
+                            pass
 
         if self.y < self.floor:
             self.y = self.floor
@@ -65,9 +82,9 @@ class Mario:
 
     def get_bb(self):
         if self.frame_y == 7:
-            return self.x - 32 / 2, self.y - 60 / 2, self.x + 32 / 2, self.y + 60 / 2
+            return self.x - 32 / 2, self.y - self.floor, self.x + 32 / 2, self.y + 60 / 2
         elif self.frame_y == 9:
-            return self.x - 32 / 2, self.y - 30 / 2, self.x + 32 / 2, self.y + 50 / 2
+            return self.x - 32 / 2, self.y - self.floor, self.x + 32 / 2, self.y + 50 / 2
 
 # image = load_image('mario2.png')
 
