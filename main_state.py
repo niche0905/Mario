@@ -155,9 +155,9 @@ def update():
 
     for b in blocks:
         if collide(character, b):
+            left_c, bottom_c, right_c, top_c = character.get_bb()
+            left_b, bottom_b, right_b, top_b = b.get_bb()
             if character.velocity < 0:
-                left_c, bottom_c, right_c, top_c = character.get_bb()
-                left_b, bottom_b, right_b, top_b = b.get_bb()
                 mid_x = (left_c + right_c) / 2
                 if left_b < mid_x and mid_x < right_b:
                     character.db_left, character.db_bottom, character.db_right, character.db_top = b.get_bb()
@@ -166,6 +166,12 @@ def update():
                     character.hold = False
                     character.velocity = 0
                     character.frame_x = 0
+            else:
+                if character.direction: # left
+                    character.x = right_b + 16
+                else: # right
+                    character.x = left_b - 16
+
 
 
 def draw():

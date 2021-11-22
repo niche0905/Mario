@@ -1,7 +1,7 @@
 from pico2d import *
 # import math
 
-g = 10
+g = 6
 
 class Mario:
     image = None
@@ -49,6 +49,8 @@ class Mario:
             self.velocity -= g
             if self.frame_x == 7:
                 self.velocity -= g
+            if self.velocity < -40:
+                self.velocity = -40
             self.y += self.velocity
         else:
             left_a, bottom_a, right_a, top_a = self.get_bb()
