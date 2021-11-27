@@ -8,6 +8,7 @@ import game_framework
 import map_1
 import map_2
 import map_3
+import server
 
 import game_world
 
@@ -35,70 +36,54 @@ from block import mid_right
 name = "MainState"
 
 
-character = None
-goomba = None
-koopa = None
-h_bro = None
-c1 = None
-m1 = None
-blocks = []
 
 def enter():
-    global character
-    global goomba
-    global koopa
-    global h_bro
-    global c1
-    global m1
-    global blocks
-    character = Mario()
-    goomba = Goomba()
-    koopa = Koopa()
-    h_bro = Hammer_bro()
-    c1 = coin()
-    m1 = mushroom()
-    game_world.add_object(character, 0)
-    game_world.add_object(goomba, 0)
-    game_world.add_object(koopa, 0)
-    game_world.add_object(h_bro, 0)
-    game_world.add_object(c1, 0)
-    game_world.add_object(m1, 0)
-    blocks.append(hard_brick(775, 25))
-    blocks.append(grass_mid(25, -25))
-    blocks.append(grass_mid(75, -25))
-    blocks.append(grass_mid(125, -25))
-    blocks.append(grass_mid(175, -25))
-    blocks.append(grass_mid(225, -25))
-    blocks.append(grass_mid(275, -25))
-    blocks.append(grass_mid(325, -25))
-    blocks.append(grass_mid(375, -25))
-    blocks.append(grass_mid(425, -25))
-    blocks.append(grass_mid(475, -25))
-    blocks.append(grass_mid(525, -25))
-    blocks.append(grass_mid(575, -25))
-    blocks.append(grass_mid(625, -25))
-    blocks.append(grass_mid(675, -25))
-    blocks.append(grass_mid(725, -25))
-    blocks.append(grass_mid(775, -25))
-    blocks.append(grass_left())
-    blocks.append(grass_mid())
-    blocks.append(grass_right())
-    blocks.append(soft_brick())
-    blocks.append(random_block())
-    blocks.append(mush_left())
-    blocks.append(mush_mid())
-    blocks.append(mush_right())
-    blocks.append(pipe_left())
-    blocks.append(pipe_right())
-    blocks.append(mid_left())
-    blocks.append(mid_right())
-    game_world.add_objects(blocks, 0)
+    server.character = Mario()
+    server.enemys.append(Goomba())
+    server.enemys.append(Koopa())
+    server.enemys.append(Hammer_bro())
+    server.objects.append(coin())
+    server.objects.append(mushroom())
+    server.blocks.append(hard_brick(775, 25))
+    server.blocks.append(grass_mid(25, -25))
+    server.blocks.append(grass_mid(75, -25))
+    server.blocks.append(grass_mid(125, -25))
+    server.blocks.append(grass_mid(175, -25))
+    server.blocks.append(grass_mid(225, -25))
+    server.blocks.append(grass_mid(275, -25))
+    server.blocks.append(grass_mid(325, -25))
+    server.blocks.append(grass_mid(375, -25))
+    server.blocks.append(grass_mid(425, -25))
+    server.blocks.append(grass_mid(475, -25))
+    server.blocks.append(grass_mid(525, -25))
+    server.blocks.append(grass_mid(575, -25))
+    server.blocks.append(grass_mid(625, -25))
+    server.blocks.append(grass_mid(675, -25))
+    server.blocks.append(grass_mid(725, -25))
+    server.blocks.append(grass_mid(775, -25))
+    server.blocks.append(grass_left())
+    server.blocks.append(grass_mid())
+    server.blocks.append(grass_right())
+    server.blocks.append(soft_brick())
+    server.blocks.append(random_block())
+    server.blocks.append(mush_left())
+    server.blocks.append(mush_mid())
+    server.blocks.append(mush_right())
+    server.blocks.append(pipe_left())
+    server.blocks.append(pipe_right())
+    server.blocks.append(mid_left())
+    server.blocks.append(mid_right())
+    game_world.add_object(server.character, 0)
+    game_world.add_objects(server.enemys, 0)
+    game_world.add_objects(server.objects, 0)
+    game_world.add_objects(server.blocks, 0)
 
 def exit():
     game_world.clear()
-    global blocks
-    del(blocks)
-
+    server.character = None
+    server.enemys = []
+    server.objects = []
+    server.blocks = []
 
 def pause():
     pass
@@ -109,7 +94,6 @@ def resume():
 
 
 def handle_events():
-    global character
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -118,23 +102,23 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             elif event.key == SDLK_LEFT:
-                character.direction = True
-                character.go = True
+                server.character.direction = True
+                server.character.go = True
             elif event.key == SDLK_RIGHT:
-                character.direction = False
-                character.go = True
+                server.character.direction = False
+                server.character.go = True
             elif event.key == SDLK_UP:
-                if character.hold == False:
-                    character.jump = True
+                if server.character.hold == False:
+                    server.character.jump = True
             elif event.key == SDLK_DOWN:
-                if character.hold == True:
-                    character.spec = True
-            elif event.key == SDLK_1 and character.frame_y == 7:
-                character.frame_y = 9
-                character.floor = 8
-            elif event.key == SDLK_2 and character.frame_y == 9:
-                character.frame_y = 7
-                character.floor = 25
+                if server.character.hold == True:
+                    server.character.spec = True
+            elif event.key == SDLK_1 and server.character.frame_y == 7:
+                server.character.frame_y = 9
+                server.character.floor = 8
+            elif event.key == SDLK_2 and server.character.frame_y == 9:
+                server.character.frame_y = 7
+                server.character.floor = 25
             elif event.key == SDLK_3:
                 game_framework.change_state(map_1)
             elif event.key == SDLK_4:
@@ -142,10 +126,10 @@ def handle_events():
             elif event.key == SDLK_5:
                 game_framework.change_state(map_3)
         elif event.type == SDL_KEYUP:
-            if event.key == SDLK_LEFT and character.direction == True:
-                character.go = False
-            elif event.key == SDLK_RIGHT and character.direction == False:
-                character.go = False
+            if event.key == SDLK_LEFT and server.character.direction == True:
+                server.character.go = False
+            elif event.key == SDLK_RIGHT and server.character.direction == False:
+                server.character.go = False
 
 
 
@@ -153,24 +137,24 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    for b in blocks:
-        if collide(character, b):
+    for b in server.blocks:
+        if collide(server.character, b):
             left_c, bottom_c, right_c, top_c = character.get_bb()
             left_b, bottom_b, right_b, top_b = b.get_bb()
-            if character.velocity < 0:
+            if server.character.velocity < 0:
                 mid_x = (left_c + right_c) / 2
                 if left_b < mid_x and mid_x < right_b:
-                    character.db_left, character.db_bottom, character.db_right, character.db_top = b.get_bb()
-                if character.y < character.floor + top_b:
-                    character.y = character.floor + top_b
-                    character.hold = False
-                    character.velocity = 0
-                    character.frame_x = 0
+                    server.character.db_left, server.character.db_bottom, server.character.db_right, server.character.db_top = b.get_bb()
+                if server.character.y < server.character.floor + top_b:
+                    server.character.y = server.character.floor + top_b
+                    server.character.hold = False
+                    server.character.velocity = 0
+                    server.character.frame_x = 0
             else:
-                if character.direction: # left
-                    character.x = right_b + 16
+                if server.character.direction: # left
+                    server.character.x = right_b + 16
                 else: # right
-                    character.x = left_b - 16
+                    server.character.x = left_b - 16
 
 
 
