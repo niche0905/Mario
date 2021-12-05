@@ -35,8 +35,6 @@ from block import mid_right
 
 name = "MainState"
 
-
-
 def enter():
     server.character = Mario()
     server.enemys.append(Goomba())
@@ -84,6 +82,7 @@ def exit():
     server.enemys = []
     server.objects = []
     server.blocks = []
+    server.ornblocks = []
 
 def pause():
     pass
@@ -139,7 +138,7 @@ def update():
 
     for b in server.blocks:
         if collide(server.character, b):
-            left_c, bottom_c, right_c, top_c = character.get_bb()
+            left_c, bottom_c, right_c, top_c = server.character.get_bb()
             left_b, bottom_b, right_b, top_b = b.get_bb()
             if server.character.velocity < 0:
                 mid_x = (left_c + right_c) / 2
