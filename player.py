@@ -98,7 +98,8 @@ class Mario:
                             pass
 
         if self.go:
-            self.float = True
+            # self.float = True
+            pass
         for b in server.blocks:
             if collide(server.character, b):
                 left_c, bottom_c, right_c, top_c = server.character.get_bb()
@@ -123,6 +124,10 @@ class Mario:
                             self.x = right_b + 16
                         else:
                             self.x = left_b - 16
+
+        if self.y < -100:
+            pass
+            # 마리오가 죽어버렸지 모얌얌
 
     def draw(self):
         if self.direction:
