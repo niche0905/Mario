@@ -209,3 +209,19 @@ class mid_right:
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+class cave_rock:
+    image = None
+    def __init__(self, x = 50, y = 450):
+        if grass_right.image == None:
+            grass_right.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_right.image.clip_draw(2, 165, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2

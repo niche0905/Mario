@@ -203,7 +203,7 @@ def update():
 
     if server.character.x < 0:
         server.characterx = 0
-    if server.character.x > 400 and server.character.x < 4800 - 400:
+    if server.character.x >= 400 and server.character.x <= 4800 - 400:
         server.camera_pivot = server.character.x - 400
 
     # if left_down:

@@ -32,6 +32,7 @@ from block import pipe_left
 from block import pipe_right
 from block import mid_left
 from block import mid_right
+from block import cave_rock
 
 name = "MainState"
 
@@ -71,6 +72,7 @@ def enter():
     server.blocks.append(pipe_right())
     server.blocks.append(mid_left())
     server.blocks.append(mid_right())
+    server.blocks.append(cave_rock())
     game_world.add_object(server.character, 0)
     game_world.add_objects(server.enemys, 0)
     game_world.add_objects(server.objects, 0)
