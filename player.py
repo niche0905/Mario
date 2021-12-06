@@ -12,10 +12,10 @@ g = 6
 
 class Mario:
     image = None
-    def __init__(self):
+    def __init__(self, x = 500, y = 300):
         if Mario.image == None:
             Mario.image = load_image('mario2.png')
-        self.x, self.y = 500, 300
+        self.x, self.y = x, y
         self.direction = True # T left F right
         self.go = False
         self.jump = False
