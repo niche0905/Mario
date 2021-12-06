@@ -107,17 +107,24 @@ def handle_events():
                 server.character.direction = False
                 server.character.go = True
             elif event.key == SDLK_UP:
-                if server.character.hold == False:
+                if server.character.float == False:
                     server.character.jump = True
             elif event.key == SDLK_DOWN:
-                if server.character.hold == True:
+                if server.character.float == True:
                     server.character.spec = True
-            elif event.key == SDLK_1 and server.character.frame_y == 7:
+            elif event.key == SDLK_1 and (server.character.frame_y == 7 or server.character.frame_y == 6):
                 server.character.frame_y = 9
+                server.character.frame_x = 0
                 server.character.floor = 8
-            elif event.key == SDLK_2 and server.character.frame_y == 9:
+                server.character.cap = 25
+                server.character.float = True
+            elif event.key == SDLK_2 and (server.character.frame_y == 9 or server.character.frame_y == 8):
                 server.character.frame_y = 7
+                server.character.frame_x = 0
                 server.character.floor = 25
+                server.character.y += 18
+                server.character.cap = 30
+                server.character.float = True
             elif event.key == SDLK_3:
                 game_framework.change_state(map_1)
             elif event.key == SDLK_4:
@@ -136,24 +143,7 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    for b in server.blocks:
-        if collide(server.character, b):
-            left_c, bottom_c, right_c, top_c = server.character.get_bb()
-            left_b, bottom_b, right_b, top_b = b.get_bb()
-            if server.character.velocity < 0:
-                mid_x = (left_c + right_c) / 2
-                if left_b < mid_x and mid_x < right_b:
-                    server.character.db_left, server.character.db_bottom, server.character.db_right, server.character.db_top = b.get_bb()
-                if server.character.y < server.character.floor + top_b:
-                    server.character.y = server.character.floor + top_b
-                    server.character.hold = False
-                    server.character.velocity = 0
-                    server.character.frame_x = 0
-            else:
-                if server.character.direction: # left
-                    server.character.x = right_b + 16
-                else: # right
-                    server.character.x = left_b - 16
+
 
 
 
@@ -162,18 +152,3 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-def collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a >= right_b:
-        return False
-    if right_a <= left_b:
-        return False
-    if top_a <= bottom_b:
-        return False
-    if bottom_a >= top_b:
-        return False
-
-    return True
