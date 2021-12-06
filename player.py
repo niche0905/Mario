@@ -82,6 +82,17 @@ class Mario:
                 self.velocity = -30
             self.y += self.velocity
 
+        for e in server.enemys:
+            if collide(server.character, e):
+                left_c, bottom_c, right_c, top_c = server.character.get_bb()
+                left_e, bottom_e, right_e, top_e = e.get_bb()
+                if server.character.velocity < 0:
+                    if (self.old_y - self.floor > top_e) and (bottom_c < top_e):
+                        mid_x = (left_c + right_c) / 2
+                        if left_e < mid_x and mid_x < right_e:
+                            # 적 죽여버려~
+                            pass
+
         for b in server.blocks:
             if collide(server.character, b):
                 left_c, bottom_c, right_c, top_c = server.character.get_bb()

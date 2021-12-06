@@ -4,6 +4,7 @@ from pico2d import *
 # WIDTH, HEIGHT = 800, 600
 
 g = 10
+character_x, chararcter_y = 200, 30
 
 class Goomba:
     image = None
@@ -54,7 +55,11 @@ class Goomba:
         self.frame = (self.frame + 1) % 2
 
     def draw(self):
-        Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x, self.y, self.width * 2, self.height * 2)
+        Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x + self.width / 2, self.y, self.width * 2, self.height * 2)
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
 
     # def death_check(self):
     #     self.death = True
@@ -127,8 +132,17 @@ class Koopa:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
             else:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
+            draw_rectangle(*self.get_bb())
         else:
             Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+            draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        if self.status == 0:
+            return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+        else:
+            return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+
 
 class Hammer_bro:
     image = None
@@ -192,6 +206,7 @@ class Hammer_bro:
             Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
         else:
             Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
+        draw_rectangle(*self.get_bb())
         if self.status == 1:
             if self.hammer_velocity > 0:
                 if self.hammer_frame >= 2:
@@ -203,6 +218,11 @@ class Hammer_bro:
                     Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
                     Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+
+
 # def handle_events():
 #     global running
 #
@@ -220,7 +240,6 @@ class Hammer_bro:
 # running = True
 
 # goomba = Goomba()
-character_x, chararcter_y = 200, 30
 
 # while running:
 #     clear_canvas()
