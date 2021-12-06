@@ -8,10 +8,10 @@ g = 10
 
 class Goomba:
     image = None
-    def __init__(self):
+    def __init__(self, x = 400, y = 300):
         if Goomba.image == None:
             Goomba.image = load_image('enemis.png')
-        self.x, self.y = 400, 300
+        self.x, self.y = x, y
         self.velocity = 0
         self.floor = 10
         self.frame = 0
@@ -66,10 +66,10 @@ class Goomba:
 
 class Koopa:
     image = None
-    def __init__(self):
+    def __init__(self, x = 400, y = 300):
         if Koopa.image == None:
             Koopa.image = load_image('enemis.png')
-        self.x, self.y = 400, 300
+        self.x, self.y = x, y
         self.velocity = 0
         self.floor = 20
         self.frame = 5
@@ -146,10 +146,10 @@ class Koopa:
 
 class Hammer_bro:
     image = None
-    def __init__(self):
+    def __init__(self, x = 400, y = 300):
         if Hammer_bro.image == None:
             Hammer_bro.image = load_image('enemis.png')
-        self.x, self.y = 400, 300
+        self.x, self.y = x, y
         self.velocity = 0
         self.floor = 20
         self.frame = 3
