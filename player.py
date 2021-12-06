@@ -66,7 +66,7 @@ class Mario:
             self.jump = False
             self.float = True
         if self.spec:
-            self.velocity = 0
+            self.velocity = -g
             self.spec = False
             if self.frame_y == 6 or self.frame_y == 8:
                 self.frame_y = self.frame_y + 1
@@ -97,12 +97,14 @@ class Mario:
                             # 적 죽여버려~
                             pass
 
+        if self.go:
+            self.float = True
         for b in server.blocks:
             if collide(server.character, b):
                 left_c, bottom_c, right_c, top_c = server.character.get_bb()
                 left_b, bottom_b, right_b, top_b = b.get_bb()
                 if server.character.velocity < 0:
-                    if (self.old_y - self.floor > top_b) and (bottom_c < top_b):
+                    if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                         server.character.y = server.character.floor + top_b
                         server.character.float = False
                         server.character.velocity = 0
@@ -113,7 +115,7 @@ class Mario:
                         else:
                             self.x = left_b - 16
                 else:
-                    if (self.old_y + self.cap < bottom_b) and (top_c > bottom_b):
+                    if (self.old_y + self.cap <= bottom_b) and (top_c > bottom_b):
                         server.character.y = -server.character.cap + bottom_b
                         server.character.velocity = 0
                     elif (self.old_y + self.cap > bottom_b) and (top_c > bottom_b):
