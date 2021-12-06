@@ -82,6 +82,10 @@ class Mario:
                 self.velocity = -30
             self.y += self.velocity
 
+        for o in server.objects:
+            if collide(server.character, o):
+                pass
+
         for e in server.enemys:
             if collide(server.character, e):
                 left_c, bottom_c, right_c, top_c = server.character.get_bb()
