@@ -75,6 +75,7 @@ def enter():
     game_world.add_objects(server.enemys, 0)
     game_world.add_objects(server.objects, 0)
     game_world.add_objects(server.blocks, 0)
+    server.camera_pivot = 0
 
 def exit():
     game_world.clear()
@@ -83,6 +84,8 @@ def exit():
     server.objects = []
     server.blocks = []
     server.ornblocks = []
+    server.camera_pivot = 0
+
 
 def pause():
     pass

@@ -1,4 +1,5 @@
 from pico2d import *
+import server
 
 class hard_brick:
     image = None
@@ -11,7 +12,7 @@ class hard_brick:
         pass
 
     def draw(self):
-        hard_brick.image.clip_draw(261, 812, 29, 29, self.x, self.y, self.width, self.height)
+        hard_brick.image.clip_draw(261, 812, 29, 29, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -27,7 +28,7 @@ class soft_brick:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(2, 942, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(2, 942, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -43,7 +44,7 @@ class grass_left:
         pass
 
     def draw(self):
-        grass_left.image.clip_draw(2, 780, 28, 28, self.x, self.y, self.width, self.height)
+        grass_left.image.clip_draw(2, 780, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -59,7 +60,7 @@ class grass_mid:
         pass
 
     def draw(self):
-        grass_mid.image.clip_draw(35, 780, 28, 28, self.x, self.y, self.width, self.height)
+        grass_mid.image.clip_draw(35, 780, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -75,7 +76,7 @@ class grass_right:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(67, 780, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(67, 780, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -92,7 +93,7 @@ class random_block:
         self.frame = (self.frame + 1) % 3
 
     def draw(self):
-        grass_right.image.clip_draw(34 + 33 * self.frame, 943, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(34 + 33 * self.frame, 943, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -108,7 +109,7 @@ class mush_left:
         pass
 
     def draw(self):
-        grass_left.image.clip_draw(457, 683, 28, 28, self.x, self.y, self.width, self.height)
+        grass_left.image.clip_draw(457, 683, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -124,7 +125,7 @@ class mush_mid:
         pass
 
     def draw(self):
-        grass_mid.image.clip_draw(489, 683, 28, 28, self.x, self.y, self.width, self.height)
+        grass_mid.image.clip_draw(489, 683, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -140,7 +141,7 @@ class mush_right:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(521, 683, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(521, 683, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -156,7 +157,7 @@ class pipe_left:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(554, 198, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(554, 198, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -172,7 +173,7 @@ class pipe_right:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(587, 198, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(587, 198, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -188,7 +189,7 @@ class mid_left:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(554, 165, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(554, 165, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
@@ -204,7 +205,7 @@ class mid_right:
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(587, 165, 28, 28, self.x, self.y, self.width, self.height)
+        grass_right.image.clip_draw(587, 165, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2

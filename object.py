@@ -1,4 +1,5 @@
 from pico2d import *
+import server
 
 class coin:
     image = None
@@ -12,7 +13,7 @@ class coin:
         pass
 
     def draw(self):
-        coin.image.clip_draw(1 * self.width, 1 * self.height + 16, self.width, self.height, self.x, self.y, self.width, self.height)
+        coin.image.clip_draw(1 * self.width, 1 * self.height + 16, self.width, self.height, self.x - server.camera_pivot, self.y, self.width, self.height)
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
@@ -52,7 +53,7 @@ class mushroom:
             self.velocity = 0
 
     def draw(self):
-        mushroom.image.clip_draw(4 * self.width + 4, 2 * self.height + 16, self.width, self.height, self.x, self.y, self.width, self.height)
+        mushroom.image.clip_draw(4 * self.width + 4, 2 * self.height + 16, self.width, self.height, self.x - server.camera_pivot, self.y, self.width, self.height)
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):

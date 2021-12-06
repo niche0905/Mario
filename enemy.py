@@ -55,7 +55,7 @@ class Goomba:
         self.frame = (self.frame + 1) % 2
 
     def draw(self):
-        Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x + self.width / 2, self.y, self.width * 2, self.height * 2)
+        Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x + self.width / 2 - server.camera_pivot, self.y, self.width * 2, self.height * 2)
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
@@ -129,12 +129,12 @@ class Koopa:
     def draw(self):
         if self.status == 0:
             if self.direction == True:
-                Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+                Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
             else:
-                Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
+                Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
             draw_rectangle(*self.get_bb())
         else:
-            Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+            Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
             draw_rectangle(*self.get_bb())
 
     def get_bb(self):
@@ -203,21 +203,21 @@ class Hammer_bro:
 
     def draw(self):
         if self.direction == True:
-            Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'n', self.x, self.y, self.width * 2, self.height * 2)
+            Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
         else:
-            Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'h', self.x, self.y, self.width * 2, self.height * 2)
+            Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
         draw_rectangle(*self.get_bb())
         if self.status == 1:
             if self.hammer_velocity > 0:
                 if self.hammer_frame >= 2:
-                    Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
-                    Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'n', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
             else:
                 if self.hammer_frame >= 2:
-                    Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
-                    Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+                    Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
