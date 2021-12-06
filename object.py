@@ -13,6 +13,10 @@ class coin:
 
     def draw(self):
         coin.image.clip_draw(1 * self.width, 1 * self.height + 16, self.width, self.height, self.x, self.y, self.width, self.height)
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 24, self.y - 22, self.x + 8, self.y + 16
 
 
 g = 10
@@ -49,3 +53,7 @@ class mushroom:
 
     def draw(self):
         mushroom.image.clip_draw(4 * self.width + 4, 2 * self.height + 16, self.width, self.height, self.x, self.y, self.width, self.height)
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return self.x - 20, self.y - self.floor, self.x + 20, self.y + 16

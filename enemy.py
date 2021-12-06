@@ -1,10 +1,10 @@
 from pico2d import *
 # import math
+import server
 
 # WIDTH, HEIGHT = 800, 600
 
 g = 10
-character_x, chararcter_y = 200, 30
 
 class Goomba:
     image = None
@@ -29,7 +29,7 @@ class Goomba:
         else:
             self.status = 0
         if self.status == 1:
-            if character_x < self.x:
+            if server.character.x < self.x:
                 self.direction = True
             else:
                 self.direction = False
@@ -167,7 +167,7 @@ class Hammer_bro:
             # del(self) # 이거 되냐?
             pass
 
-        if character_x < self.x:
+        if server.character.x < self.x:
             self.direction = True
         else:
             self.direction = False
@@ -175,7 +175,7 @@ class Hammer_bro:
         if self.status == 0:
             self.frame = 3
 
-        if abs(character_x - self.x) < 300 and abs(30 - self.y) < 30 and self.status == 0:
+        if abs(server.character.x - self.x) < 300 and abs(30 - self.y) < 30 and self.status == 0:
             self.status = 1
             self.frame = 5
             if self.direction:
