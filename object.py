@@ -14,10 +14,13 @@ class coin:
 
     def draw(self):
         coin.image.clip_draw(1 * self.width, 1 * self.height + 16, self.width, self.height, self.x - server.camera_pivot, self.y, self.width, self.height)
-        draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb(True))
 
-    def get_bb(self):
-        return self.x - 24, self.y - 22, self.x + 8, self.y + 16
+    def get_bb(self, camera = False):
+        if camera:
+            return self.x - 24 - server.camera_pivot, self.y - 22, self.x + 8 - server.camera_pivot, self.y + 16
+        else:
+            return self.x - 24, self.y - 22, self.x + 8, self.y + 16
 
 
 g = 10
@@ -54,7 +57,11 @@ class mushroom:
 
     def draw(self):
         mushroom.image.clip_draw(4 * self.width + 4, 2 * self.height + 16, self.width, self.height, self.x - server.camera_pivot, self.y, self.width, self.height)
-        draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb(True))
 
-    def get_bb(self):
-        return self.x - 20, self.y - self.floor, self.x + 20, self.y + 16
+    def get_bb(self, camera = False):
+        if camera:
+            return self.x - 20 - server.camera_pivot, self.y - self.floor, self.x + 20 - server.camera_pivot, self.y + 16
+        else:
+            return self.x - 20, self.y - self.floor, self.x + 20, self.y + 16
+

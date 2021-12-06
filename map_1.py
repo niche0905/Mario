@@ -11,15 +11,14 @@ import map_3
 from pico2d import *
 import game_world
 
+from player import Mario
 from block import hard_brick, soft_brick, grass_left, grass_mid, grass_right, random_block, mush_left, mush_mid, mush_right, pipe_left, pipe_right, mid_left, mid_right
 
 name = "Map1State"
 
 def enter():
-    global left_down, right_down
-    left_down = False
-    right_down = False
     server.camera_pivot = 0
+    server.character = Mario(50, 200)
     server.blocks.append(grass_mid(25, 25)) # 0
     server.blocks.append(grass_mid(75, 25))
     server.blocks.append(grass_mid(125, 25))
@@ -37,13 +36,13 @@ def enter():
     server.blocks.append(grass_mid(725, 25))
     server.blocks.append(grass_mid(775, 25))
 
-    server.blocks.append(soft_brick(375, 325))
-    server.blocks.append(soft_brick(425, 325))
-    server.blocks.append(soft_brick(475, 325))
-    server.blocks.append(random_block(525, 325))
-    server.blocks.append(soft_brick(575, 325))
-    server.blocks.append(soft_brick(625, 325))
-    server.blocks.append(soft_brick(675, 325))
+    server.blocks.append(soft_brick(375, 275))
+    server.blocks.append(soft_brick(425, 275))
+    server.blocks.append(soft_brick(475, 275))
+    server.blocks.append(random_block(525, 275))
+    server.blocks.append(soft_brick(575, 275))
+    server.blocks.append(soft_brick(625, 275))
+    server.blocks.append(soft_brick(675, 275))
 
     server.blocks.append(grass_mid(825, 25)) # 800
     server.blocks.append(grass_mid(875, 25))
@@ -83,22 +82,22 @@ def enter():
     server.blocks.append(grass_mid(2325, 25))
     server.blocks.append(grass_mid(2375, 25))
 
-    server.blocks.append(soft_brick(1975, 375))
-    server.blocks.append(soft_brick(2025, 375))
-    server.blocks.append(soft_brick(2075, 375))
-    server.blocks.append(soft_brick(2125, 375))
-    server.blocks.append(soft_brick(2175, 375))
-    server.blocks.append(soft_brick(2225, 375))
+    server.blocks.append(soft_brick(1875, 325))
+    server.blocks.append(soft_brick(1925, 325))
+    server.blocks.append(soft_brick(1975, 325))
+    server.blocks.append(soft_brick(2025, 325))
+    server.blocks.append(soft_brick(2075, 325))
+    server.blocks.append(soft_brick(2125, 325))
 
     server.blocks.append(grass_mid(2425, 25)) # 2400
     server.blocks.append(grass_mid(2475, 25))
     server.blocks.append(grass_mid(2425, 25))
     server.blocks.append(grass_mid(2475, 25))
+    server.blocks.append(grass_mid(2525, 25))
+    server.blocks.append(grass_mid(2575, 25))
     server.blocks.append(grass_mid(2625, 25))
     server.blocks.append(grass_mid(2675, 25))
-    server.blocks.append(grass_mid(2725, 25))
-    server.blocks.append(grass_mid(2775, 25))
-    server.blocks.append(grass_right(2825, 25))
+    server.blocks.append(grass_right(2725, 25))
 
     server.blocks.append(grass_left(2975, 75))
     server.blocks.append(grass_mid(3025, 75))
@@ -131,11 +130,18 @@ def enter():
     server.blocks.append(grass_left(4425, 225))
     server.blocks.append(grass_left(4475, 275))
     server.blocks.append(grass_left(4525, 325))
+    server.blocks.append(grass_mid(4575, 325))
+    server.blocks.append(grass_mid(4625, 325))
+    server.blocks.append(grass_mid(4675, 325))
+    server.blocks.append(grass_mid(4725, 325))
+    server.blocks.append(grass_mid(4775, 325))
 
+    game_world.add_object(server.character, 1)
     game_world.add_objects(server.blocks, 0)
 
 def exit():
     game_world.clear()
+    server.character = None
     server.blocks = []
     server.camera_pivot = 0
 
@@ -146,7 +152,6 @@ def resume():
     pass
 
 def handle_events():
-    global left_down, right_down
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -155,20 +160,39 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             elif event.key == SDLK_LEFT:
-                left_down = True
-                right_down = False
+                server.character.direction = True
+                server.character.go = True
             elif event.key == SDLK_RIGHT:
-                right_down = True
-                left_down = False
+                server.character.direction = False
+                server.character.go = True
+            elif event.key == SDLK_UP:
+                if server.character.float == False:
+                    server.character.jump = True
+            elif event.key == SDLK_DOWN:
+                if server.character.float == True:
+                    server.character.spec = True
+            elif event.key == SDLK_1 and (server.character.frame_y == 7 or server.character.frame_y == 6):
+                server.character.frame_y = 9
+                server.character.frame_x = 0
+                server.character.floor = 8
+                server.character.cap = 25
+                server.character.float = True
+            elif event.key == SDLK_2 and (server.character.frame_y == 9 or server.character.frame_y == 8):
+                server.character.frame_y = 7
+                server.character.frame_x = 0
+                server.character.floor = 25
+                server.character.y += 18
+                server.character.cap = 30
+                server.character.float = True
             elif event.key == SDLK_4:
                 game_framework.change_state(map_2)
             elif event.key == SDLK_5:
                 game_framework.change_state(map_3)
         elif event.type == SDL_KEYUP:
-            if event.key == SDLK_LEFT:
-                left_down = False
-            elif event.key == SDLK_RIGHT:
-                right_down = False
+            if event.key == SDLK_LEFT and server.character.direction == True:
+                server.character.go = False
+            elif event.key == SDLK_RIGHT and server.character.direction == False:
+                server.character.go = False
 
 
 
@@ -176,17 +200,23 @@ def update():
     global left_down, right_down
     for game_object in game_world.all_objects():
         game_object.update()
-    if left_down:
-        server.camera_pivot -= 50
-        if server.camera_pivot < 0:
-            server.camera_pivot = 0
-            left_down = False
 
-    if right_down:
-        server.camera_pivot += 50
-        if server.camera_pivot + 800 > 4800:
-            server.camera_pivot = 4800 - 800
-            right_down = False
+    if server.character.x < 0:
+        server.characterx = 0
+    if server.character.x > 400 and server.character.x < 4800 - 400:
+        server.camera_pivot = server.character.x - 400
+
+    # if left_down:
+    #     server.camera_pivot -= 50
+    #     if server.camera_pivot < 0:
+    #         server.camera_pivot = 0
+    #         left_down = False
+    #
+    # if right_down:
+    #     server.camera_pivot += 50
+    #     if server.camera_pivot + 800 > 4800:
+    #         server.camera_pivot = 4800 - 800
+    #         right_down = False
 
 def draw():
     clear_canvas()

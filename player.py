@@ -129,12 +129,12 @@ class Mario:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width, self.height)
         else:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width, self.height)
-        draw_rectangle(*self.get_bb())
+        draw_rectangle(*self.get_bb(True))
 
-    def get_bb(self):
-        if self.frame_y == 7 or self.frame_y == 6:
-            return self.x - 32 / 2, self.y - self.floor, self.x + 32 / 2, self.y + self.cap
-        elif self.frame_y == 9 or self.frame_y == 8:
+    def get_bb(self, camera = False):
+        if camera:
+            return self.x - 32 / 2 - server.camera_pivot, self.y - self.floor, self.x + 32 / 2 - server.camera_pivot, self.y + self.cap
+        else:
             return self.x - 32 / 2, self.y - self.floor, self.x + 32 / 2, self.y + self.cap
 
 # image = load_image('mario2.png')
