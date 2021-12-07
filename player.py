@@ -12,6 +12,9 @@ g = 6
 
 class Mario:
     image = None
+    jump_sound = None
+    monster_sound = None
+    random_sound = None
     def __init__(self, x = 500, y = 300):
         if Mario.image == None:
             Mario.image = load_image('mario2.png')
@@ -27,6 +30,16 @@ class Mario:
         self.velocity = 0
         self.floor = 25
         self.cap = 30
+        if Mario.jump_sound == None:
+            Mario.jump_sound = load_wav('jump.mp3')
+            Mario.jump_sound.set_volume(16)
+        if Mario.monster_sound == None:
+            Mario.monster_sound = load_wav('monsterDead.mp3')
+            Mario.monster_sound.set_volume(32)
+        if Mario.random_sound == None:
+            Mario.random_sound = load_wav('random.mp3')
+            Mario.random_sound.set_volume(16)
+
 
     def update(self):
         if self.go:
@@ -59,6 +72,7 @@ class Mario:
                     self.frame_y = self.frame_y + 1
 
         if self.jump:
+            Mario.jump_sound.play()
             self.velocity = 50
             if self.frame_y == 6 or self.frame_y == 8:
                 self.frame_y = self.frame_y + 1
@@ -97,6 +111,8 @@ class Mario:
                     if (self.old_y - self.floor > top_e) and (bottom_c < top_e):
                         mid_x = (left_c + right_c) / 2
                         if left_e < mid_x and mid_x < right_e:
+                            Mario.monster_sound.play()
+
                             # 적 죽여버려~
                             pass
 
@@ -111,20 +127,20 @@ class Mario:
                         server.character.velocity = 0
                         if self.frame_x == 3 or self.frame_x == 7:
                             server.character.frame_x = 0
-                    elif (self.old_y - self.floor < top_b) and (bottom_c < top_b):
+                    elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
                         if self.direction:
-                            self.x = right_b + 16
+                            self.x = right_b + 16 + 1
                         else:
-                            self.x = left_b - 16
+                            self.x = left_b - 16 - 1
                 else:
                     if (self.old_y + self.cap <= bottom_b) and (top_c > bottom_b):
                         server.character.y = -server.character.cap + bottom_b
                         server.character.velocity = 0
-                    elif (self.old_y + self.cap > bottom_b) and (top_c > bottom_b):
+                    elif (self.old_y + self.cap >= bottom_b) and (top_c > bottom_b):
                         if self.direction:
-                            self.x = right_b + 16
+                            self.x = right_b + 16 + 1
                         else:
-                            self.x = left_b - 16
+                            self.x = left_b - 16 - 1
 
         if self.y < -100:
             pass
