@@ -19,12 +19,13 @@ class Goomba:
         self.status = 0 # 0 seek 1 follow
         self.direction = True # T left F right
         self.death = False
+        self.old_y = 0
 
     def update(self):
         if self.death:
             # del(self) # 이거 되냐?
             pass
-        if abs(900 - self.x) < 50:
+        if abs(server.character.x - self.x) < 100:
             self.status = 1
         else:
             self.status = 0
@@ -38,21 +39,34 @@ class Goomba:
             self.x -= 5
         else:
             self.x += 5
-        if self.y > self.floor:
-            self.velocity -= g
-            self.y += self.velocity
 
-        if self.x < 0:
-            self.x = 0
-            self.direction = False
-        if self.x > 800:
-            self.x = 800
-            self.direction = True
-        if self.y < self.floor:
-            self.y = self.floor
-            self.velocity = 0
+        self.old_y = self.y
+
+        self.velocity -= g
+        self.y += self.velocity
+
+        for b in server.blocks:
+            if collide(self, b):
+                left_c, bottom_c, right_c, top_c = self.get_bb()
+                left_b, bottom_b, right_b, top_b = b.get_bb()
+                if self.velocity < 0:
+                    if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
+                        self.y = self.floor + top_b
+                        self.velocity = 0
+                    elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
+                        if self.direction:
+                            self.x = right_b + 16 + 1
+                            self.direction = False
+                        else:
+                            self.x = left_b - 16 - 1
+                            self.direction = True
+
 
         self.frame = (self.frame + 1) % 2
+
+        if self.y < -100:
+            pass
+
 
     def draw(self):
         Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x + self.width / 2 - server.camera_pivot, self.y, self.width * 2, self.height * 2)
@@ -81,6 +95,8 @@ class Koopa:
         self.status = 0 # 0 alive 1 stop_shell 2 moving_shell
         self.direction = True # T left F right
         self.death = False
+        self.old_y = 0
+
 
     def update(self):
         if self.death:
@@ -92,19 +108,27 @@ class Koopa:
                 self.x -= 3
             else:
                 self.x += 3
-            if self.y > self.floor:
-                self.velocity -= g
-                self.y += self.velocity
 
-            if self.x < 0:
-                self.x = 0
-                self.direction = False
-            if self.x > 800:
-                self.x = 800
-                self.direction = True
-            if self.y < self.floor:
-                self.y = self.floor
-                self.velocity = 0
+            self.old_y = self.y
+
+            self.velocity -= g
+            self.y += self.velocity
+
+            for b in server.blocks:
+                if collide(self, b):
+                    left_c, bottom_c, right_c, top_c = self.get_bb()
+                    left_b, bottom_b, right_b, top_b = b.get_bb()
+                    if self.velocity < 0:
+                        if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
+                            self.y = self.floor + top_b
+                            self.velocity = 0
+                        elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
+                            if self.direction:
+                                self.x = right_b + 16 + 1
+                                self.direction = False
+                            else:
+                                self.x = left_b - 16 - 1
+                                self.direction = True
 
             self.frame = (self.frame - 5 + 1) % 2 + 5
         else:
@@ -115,20 +139,33 @@ class Koopa:
                     self.x -= 5
                 else:
                     self.x += 5
-                if self.y > self.floor:
-                    self.velocity -= g
-                    self.y += self.velocity
 
-                if self.x < 0:
-                    self.x = 0
-                    self.direction = False
-                if self.x > 800:
-                    self.x = 800
-                    self.direction = True
-                if self.y < self.floor:
-                    self.y = self.floor
-                    self.velocity = 0
+            self.old_y = self.y
+
+            self.velocity -= g
+            self.y += self.velocity
+
+            for b in server.blocks:
+                if collide(self, b):
+                    left_c, bottom_c, right_c, top_c = self.get_bb()
+                    left_b, bottom_b, right_b, top_b = b.get_bb()
+                    if self.velocity < 0:
+                        if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
+                            self.y = self.floor + top_b
+                            self.velocity = 0
+                        elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
+                            if self.direction:
+                                self.x = right_b + 16 + 1
+                                self.direction = False
+                            else:
+                                self.x = left_b - 16 - 1
+                                self.direction = True
+
             self.frame = 12
+
+        if self.y < -100:
+            pass
+        # 자기삭제를 실행하도록 삐빅
 
     def draw(self):
         if self.status == 0:
@@ -165,6 +202,7 @@ class Hammer_bro:
         self.hammer_width, self.hammer_height = 14, 14
         self.direction = True # T left F right
         self.death = False
+        self.old_y = 0
 
     def update(self):
         if self.death:
@@ -188,13 +226,30 @@ class Hammer_bro:
                 self.hammer_velocity = 5
             self.hx, self.hy = self.x, self.y
 
-        if self.y > self.floor:
-            self.velocity -= g
-            self.y += self.velocity
 
-        if self.y < self.floor:
-            self.y = self.floor
-            self.velocity = 0
+        self.old_y = self.y
+
+        self.velocity -= g
+        self.y += self.velocity
+
+        for b in server.blocks:
+            if collide(self, b):
+                left_c, bottom_c, right_c, top_c = self.get_bb()
+                left_b, bottom_b, right_b, top_b = b.get_bb()
+                if self.velocity < 0:
+                    if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
+                        self.y = self.floor + top_b
+                        self.velocity = 0
+                    elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
+                        if self.direction:
+                            self.x = right_b + 16 + 1
+                            self.direction = False
+                        else:
+                            self.x = left_b - 16 - 1
+                            self.direction = True
+
+        if self.y < -100:
+            pass
 
         if self.status == 1:
             self.hx += self.hammer_velocity
@@ -228,6 +283,22 @@ class Hammer_bro:
             return self.x - self.width / 2 - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
         else:
             return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+
+
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a >= right_b:
+        return False
+    if right_a <= left_b:
+        return False
+    if top_a <= bottom_b:
+        return False
+    if bottom_a >= top_b:
+        return False
+
+    return True
 
 
 # def handle_events():
