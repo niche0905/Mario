@@ -16,7 +16,12 @@ from block import hard_brick, soft_brick, grass_left, grass_mid, grass_right, ra
 
 name = "Map2State"
 
+music = None
+background = None
+
 def enter():
+    global music
+    global background
     server.camera_pivot = 0
     server.character = Mario(50, 200)
     server.blocks.append(cave_rock(25, 75)) # 0
@@ -96,11 +101,23 @@ def enter():
     game_world.add_object(server.character, 1)
     game_world.add_objects(server.blocks, 0)
 
+    music = load_music('background.mp3')
+    music.set_volume(16)
+    music.repeat_play()
+
+    background = load_image('cave.jpg')
+
 def exit():
+    global music
+    global background
+
     game_world.clear()
     server.character = None
     server.blocks = []
     server.camera_pivot = 0
+
+    del(music)
+    del(background)
 
 def pause():
     pass
@@ -163,6 +180,7 @@ def update():
 
 def draw():
     clear_canvas()
+    background.clip_draw(0, 0, 500, 304, 400, 300, 800, 600)
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()

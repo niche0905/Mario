@@ -37,8 +37,12 @@ from block import mid_right
 from block import cave_rock
 
 name = "MainState"
+music = None
+background = None
 
 def enter():
+    global music
+    global background
     server.character = Mario()
     server.enemys.append(Goomba())
     server.enemys.append(Koopa())
@@ -82,8 +86,14 @@ def enter():
     game_world.add_objects(server.objects, 0)
     game_world.add_objects(server.blocks, 0)
     server.camera_pivot = 0
+    music = load_music('background.mp3')
+    music.set_volume(16)
+    music.repeat_play()
+    background = load_image('grass.jpg')
 
 def exit():
+    global music
+    global background
     game_world.clear()
     server.character = None
     server.enemys = []
@@ -91,6 +101,8 @@ def exit():
     server.blocks = []
     server.ornblocks = []
     server.camera_pivot = 0
+    del(music)
+    del(background)
 
 
 def pause():
@@ -158,6 +170,7 @@ def update():
 
 def draw():
     clear_canvas()
+    background.clip_draw(0, 0, 1280, 1024, 400, 300, 800, 600)
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
