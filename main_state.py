@@ -28,6 +28,8 @@ from block import random_block
 from block import mush_left
 from block import mush_mid
 from block import mush_right
+from block import mush_neck
+from block import mush_bottom
 from block import pipe_left
 from block import pipe_right
 from block import mid_left
@@ -68,6 +70,8 @@ def enter():
     server.blocks.append(mush_left())
     server.blocks.append(mush_mid())
     server.blocks.append(mush_right())
+    server.blocks.append(mush_neck())
+    server.blocks.append(mush_bottom())
     server.blocks.append(pipe_left())
     server.blocks.append(pipe_right())
     server.blocks.append(mid_left())

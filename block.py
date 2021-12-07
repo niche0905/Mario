@@ -146,6 +146,38 @@ class mush_right:
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
 
+class mush_neck:
+    image = None
+    def __init__(self, x = 600, y = 400):
+        if grass_mid.image == None:
+            grass_mid.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_mid.image.clip_draw(489, 650, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+class mush_bottom:
+    image = None
+    def __init__(self, x = 600, y = 350):
+        if grass_mid.image == None:
+            grass_mid.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_mid.image.clip_draw(489, 618, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
 class pipe_left:
     image = None
     def __init__(self, x = 650, y = 350):
