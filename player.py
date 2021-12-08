@@ -19,7 +19,7 @@ class Mario:
     monster_sound = None
     random_sound = None
     coin_sound = None
-    def __init__(self, x = 500, y = 200):
+    def __init__(self, x = 500, y = 200, state = 0):
         if Mario.image == None:
             Mario.image = load_image('mario2.png')
         self.x, self.y = x, y
@@ -35,7 +35,24 @@ class Mario:
         self.floor = 25
         self.cap = 30
         self.adtime = 0
-        self.status = 0 # 0 bit mario 1 small mario
+        self.status = state # 0 big mario 1 small mario
+        if self.status == 0:
+            self.frame_y = 7
+            self.frame_x = 0
+            self.floor = 25
+            self.y += 20
+            self.cap = 30
+            self.status = 0
+            self.float = True
+            self.adtime = 5
+        elif self.status == 1:
+            self.frame_y = 9
+            self.frame_x = 0
+            self.floor = 8
+            self.cap = 25
+            self.status = 1
+            self.float = True
+            self.status = 1
         self.dead = False
         if Mario.jump_sound == None:
             Mario.jump_sound = load_wav('jump.mp3')
@@ -120,7 +137,7 @@ class Mario:
                         self.frame_y = 7
                         self.frame_x = 0
                         self.floor = 25
-                        self.y += 20
+                        self.y += 22
                         self.cap = 30
                         self.status = 0
                         self.float = True

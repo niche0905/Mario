@@ -23,7 +23,7 @@ def enter():
     global music
     global background
     server.camera_pivot = 0
-    server.character = Mario(50, 200)
+    server.character = Mario(50, 200, server.character_state)
     server.blocks.append(grass_mid(25, 25)) # 0
     server.blocks.append(grass_mid(75, 25))
     server.blocks.append(grass_mid(125, 25))
@@ -308,11 +308,13 @@ def update():
         server.camera_pivot = server.character.x - 400
 
     if server.character.if_die():
+        server.character_state = 1
         game_framework.change_state(select_state)
 
     elif server.character.x > 4800:
         server.coin += server.pre_coin
         server.score += server.pre_coin * 100 + 5000
+        server.character_state = server.character.status
         if server.clear_stage <= 0:
             server.clear_stage = 1
         game_framework.change_state(select_state)
