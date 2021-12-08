@@ -220,6 +220,61 @@ class Koopa:
         elif self.status == 2:
             self.status = 1
 
+class Flying_Koopa:
+    image = None
+    def __init__(self, x = 200, y = 300):
+        if Flying_Koopa.image == None:
+            Flying_Koopa.image = load_image('enemis.png')
+        self.x, self.y = x, y
+        self.sy = y
+        self.velocity = 0
+        self.frame = 3
+        self.width, self.height = 29, 29
+        self.direction = True # T up F down
+        self.death = False
+        self.floor = 20
+
+    def update(self):
+        if self.death:
+            # del(self) # 이거 되냐?
+            pass
+
+        if self.direction == True:
+            self.y += 3
+        else:
+            self.y -= 3
+
+        if self.frame == 3:
+            self.frame = 4
+        elif self.frame == 4:
+            self.frame = 3
+
+        if self.y >= self.sy + 100:
+            self.direction = False
+        elif self.y <= self.sy - 100:
+            self.direction = True
+
+        if collide2(self, server.character):
+            server.character.hit()
+
+        if self.y < -100:
+            game_world.remove_object(self)
+            server.enemys.remove(self)
+
+    def draw(self):
+        Flying_Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
+        draw_rectangle(*self.get_bb(True))
+
+    def get_bb(self, camera = False):
+        if camera:
+            return self.x - self.width / 2 - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
+        else:
+            return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+            game_world.remove_object(self)
+            server.enemys.remove(self)
+
 class Hammer_bro:
     image = None
     def __init__(self, x = 400, y = 300):

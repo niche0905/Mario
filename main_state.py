@@ -15,6 +15,7 @@ import game_world
 from player import Mario
 from enemy import Goomba
 from enemy import Koopa
+from enemy import Flying_Koopa
 from enemy import Hammer_bro
 from object import coin
 from object import mushroom
@@ -56,6 +57,7 @@ def enter():
     server.enemys.append(Goomba())
     server.enemys.append(Koopa())
     server.enemys.append(Hammer_bro())
+    server.enemys.append(Flying_Koopa())
     server.objects.append(coin())
     server.objects.append(mushroom())
     server.blocks.append(hard_brick(775, 25))
