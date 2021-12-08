@@ -8,6 +8,7 @@ import game_framework
 import select_state
 
 import game_world
+import server
 
 name = "LogoState"
 
@@ -15,6 +16,10 @@ logo_image = None
 
 def enter():
     global logo_image
+    with open('game.json', 'r') as f:
+        data = json.load(f)
+        pass
+
     logo_image = load_image('logo.jpg')
 
 def exit():

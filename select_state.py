@@ -58,7 +58,10 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             elif event.key == SDLK_s:
-                pass
+                with open('game.json', 'w') as f:
+                    data = {"score": server.score, "coin": server.coin, "stage": server.clear_stage, "state": server.character_state}
+                    json.dump(data, f)
+
             elif event.key == SDLK_p:
                 game_framework.change_state(main_state)
             # 정보를 저장해보거라
