@@ -141,7 +141,7 @@ class Mario:
                 if server.character.velocity < 0:
                     if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                         if self.frame_x == 7:
-                            if type(b) == block.soft_brick or type(b) == block.random_block:
+                            if type(b) == block.soft_brick:
                                 b.hit()
                             else:
                                 server.character.frame_x = 0
@@ -149,7 +149,8 @@ class Mario:
                                 server.character.float = False
                                 server.character.velocity = 0
                         else:
-                            server.character.frame_x = 0
+                            if self.frame_x == 3:
+                                server.character.frame_x = 0
                             server.character.y = server.character.floor + top_b
                             server.character.float = False
                             server.character.velocity = 0
