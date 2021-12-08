@@ -63,6 +63,7 @@ def enter():
     server.blocks.append(grass_right(1125, 25))
 
     server.enemys.append(Goomba(950, 75))
+    server.enemys.append(Koopa(1500, 75))
 
     server.blocks.append(grass_left(1325, 25))
     server.blocks.append(grass_mid(1375, 25))

@@ -21,15 +21,11 @@ class Goomba:
         self.width, self.height = 29, 29
         self.status = 0 # 0 seek 1 follow
         self.direction = True # T left F right
-        self.death = False
         self.old_y = 0
         self.float = True
         self.dby = 0
 
     def update(self):
-        if self.death:
-            # del(self) # 이거 되냐?
-            pass
         if abs(server.character.x - self.x) < 200:
             self.status = 1
         else:
@@ -55,7 +51,7 @@ class Goomba:
             if collide(self, b):
                 left_c, bottom_c, right_c, top_c = self.get_bb()
                 left_b, bottom_b, right_b, top_b = b.get_bb()
-                if self.velocity < 0:
+                if self.velocity <= 0:
                     if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                         self.y = self.floor + top_b
                         self.velocity = 0
@@ -153,7 +149,7 @@ class Koopa:
                 if collide(self, b):
                     left_c, bottom_c, right_c, top_c = self.get_bb()
                     left_b, bottom_b, right_b, top_b = b.get_bb()
-                    if self.velocity < 0:
+                    if self.velocity <= 0:
                         if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                             self.y = self.floor + top_b
                             self.velocity = 0
@@ -203,7 +199,7 @@ class Koopa:
                 if collide(self, b):
                     left_c, bottom_c, right_c, top_c = self.get_bb()
                     left_b, bottom_b, right_b, top_b = b.get_bb()
-                    if self.velocity < 0:
+                    if self.velocity <= 0:
                         if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                             self.y = self.floor + top_b
                             self.velocity = 0
@@ -276,14 +272,9 @@ class Flying_Koopa:
         self.frame = 3
         self.width, self.height = 29, 29
         self.direction = True # T up F down
-        self.death = False
         self.floor = 20
 
     def update(self):
-        if self.death:
-            # del(self) # 이거 되냐?
-            pass
-
         if self.direction == True:
             self.y += 3
         else:
@@ -337,14 +328,9 @@ class Hammer_bro:
         self.hammer_frame = 0 # 0 ~ 3 : 4
         self.hammer_width, self.hammer_height = 14, 14
         self.direction = True # T left F right
-        self.death = False
         self.old_y = 0
 
     def update(self):
-        if self.death:
-            # del(self) # 이거 되냐?
-            pass
-
         if server.character.x < self.x:
             self.direction = True
         else:

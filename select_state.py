@@ -61,19 +61,18 @@ def handle_events():
                 with open('game.json', 'w') as f:
                     data = {"score": server.score, "coin": server.coin, "stage": server.clear_stage, "state": server.character_state}
                     json.dump(data, f)
-
             elif event.key == SDLK_p:
                 game_framework.change_state(main_state)
             # 정보를 저장해보거라
         elif event.type == SDL_MOUSEBUTTONDOWN:
             if event.x >= 50 and event.x <= 750:
-                if event.y >= 25 and event.y <= 175:
+                if event.y >= 65 and event.y <= 215:
                     if server.clear_stage >= 0:
                         game_framework.change_state(map_1)
-                elif event.y >= 205 and event.y <= 355:
+                elif event.y >= 245 and event.y <= 395:
                     if server.clear_stage >= 1:
                         game_framework.change_state(map_2)
-                elif event.y >= 385 and event.y <= 535:
+                elif event.y >= 425 and event.y <= 575:
                     if server.clear_stage >= 2:
                         game_framework.change_state(map_3)
 
@@ -81,11 +80,6 @@ def handle_events():
 
 def update():
     pass
-    # 스테이트 바꾸기
-
-
-
-
 
 def draw():
     clear_canvas()
