@@ -67,7 +67,8 @@ class Goomba:
         self.frame = (self.frame + 1) % 2
 
         if collide2(self, server.character):
-            pass
+            server.character.hit()
+
         # 맞았다고 전달해주기
 
         if self.y < -100:
@@ -176,7 +177,8 @@ class Koopa:
 
 
         if collide2(self, server.character):
-            pass
+            server.character.hit()
+
 
         if self.y < -100:
             game_world.remove_object(self)
@@ -283,7 +285,7 @@ class Hammer_bro:
 
 
         if collide2(self, server.character):
-            pass
+            server.character.hit()
 
         if self.y < -100:
             game_world.remove_object(self)
@@ -299,7 +301,7 @@ class Hammer_bro:
                 self.frame = 4
 
             if collide3(self, server.character):
-                pass
+                server.character.hit()
 
     def draw(self):
         if self.direction == True:

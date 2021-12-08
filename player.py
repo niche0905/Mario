@@ -107,13 +107,14 @@ class Mario:
             if collide(server.character, o):
                 if type(o) == object.mushroom:
                     if self.status == 1:
-                        server.character.frame_y = 7
-                        server.character.frame_x = 0
-                        server.character.floor = 25
-                        server.character.y += 20
-                        server.character.cap = 30
-                        server.character.status = 0
-                        server.character.float = True
+                        self.frame_y = 7
+                        self.frame_x = 0
+                        self.floor = 25
+                        self.y += 20
+                        self.cap = 30
+                        self.status = 0
+                        self.float = True
+                        self.adtime = 5
                     o.hit()
                 elif type(o) == object.coin:
                     server.pre_coin += 1
@@ -159,6 +160,9 @@ class Mario:
                         else:
                             self.x = left_b - 16 - 1
 
+        if self.adtime > 0:
+            self.adtime -= 1
+
         if self.y < -100:
             pass
             # 마리오가 죽어버렸지 모얌얌
@@ -175,6 +179,22 @@ class Mario:
             return self.x - 32 / 2 - server.camera_pivot, self.y - self.floor, self.x + 32 / 2 - server.camera_pivot, self.y + self.cap
         else:
             return self.x - 32 / 2, self.y - self.floor, self.x + 32 / 2, self.y + self.cap
+
+    def hit(self):
+        if self.adtime == 0:
+            if self.status == 0:
+                self.frame_y = 9
+                self.frame_x = 0
+                self.floor = 8
+                self.cap = 25
+                self.status = 1
+                self.float = True
+                self.status = 1
+            else:
+                pass
+            # 죽은건가?
+
+            self.adtime = 5
 
 # image = load_image('mario2.png')
 
