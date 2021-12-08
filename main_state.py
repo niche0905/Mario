@@ -41,6 +41,9 @@ from block import pipe_bottom
 from block import mid_top
 from block import mid_bottom
 from block import cave_rock
+from block import cloud_left
+from block import cloud_mid
+from block import cloud_right
 
 name = "MainState"
 music = None
@@ -93,6 +96,9 @@ def enter():
     server.blocks.append(pipe_bottom())
     server.blocks.append(mid_top())
     server.blocks.append(mid_bottom())
+    server.blocks.append(cloud_left())
+    server.blocks.append(cloud_mid())
+    server.blocks.append(cloud_right())
     game_world.add_object(server.character, 0)
     game_world.add_objects(server.enemys, 0)
     game_world.add_objects(server.objects, 0)

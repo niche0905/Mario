@@ -12,7 +12,7 @@ from pico2d import *
 import game_world
 
 from player import Mario
-from block import hard_brick, soft_brick, grass_left, grass_mid, grass_right, random_block, mush_left, mush_mid, mush_right, pipe_left, pipe_right, mid_left, mid_right, pipe_top, pipe_bottom, mid_top, mid_bottom, cave_rock
+from block import soft_brick, pipe_left, pipe_right, mid_left, mid_right, pipe_top, pipe_bottom, mid_top, mid_bottom, cave_rock
 from object import coin, mushroom
 
 name = "Map2State"

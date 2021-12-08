@@ -440,3 +440,60 @@ class cave_rock:
 
     def hit(self):
         pass
+
+class cloud_left:
+    image = None
+    def __init__(self, x = 150, y = 350):
+        if cloud_left.image == None:
+            cloud_left.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        cloud_left.image.clip_draw(294, 652, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
+class cloud_mid:
+    image = None
+    def __init__(self, x = 200, y = 350):
+        if cloud_mid.image == None:
+            cloud_mid.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        cloud_mid.image.clip_draw(327, 652, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
+class cloud_right:
+    image = None
+    def __init__(self, x = 250, y = 350):
+        if cloud_right.image == None:
+            cloud_right.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        cloud_right.image.clip_draw(361, 652, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
