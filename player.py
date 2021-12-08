@@ -138,6 +138,7 @@ class Mario:
                     if (self.old_y + self.cap <= bottom_b) and (top_c > bottom_b):
                         server.character.y = -server.character.cap + bottom_b
                         server.character.velocity = 0
+                        b.hit()
                     elif (self.old_y + self.cap >= bottom_b) and (top_c > bottom_b):
                         if self.direction:
                             self.x = right_b + 16 + 1
