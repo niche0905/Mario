@@ -9,3 +9,5 @@ score = 0
 coin = 0
 pre_coin = 0
 clear_stage = 0
+
+rect_can_see = False

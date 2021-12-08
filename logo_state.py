@@ -5,7 +5,7 @@ import os
 from pico2d import *
 
 import game_framework
-import main_state
+import select_state
 
 import game_world
 
@@ -38,7 +38,7 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             elif event.key == SDLK_SPACE:
-                game_framework.change_state(main_state)
+                game_framework.change_state(select_state)
 
 
 

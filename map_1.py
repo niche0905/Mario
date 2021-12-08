@@ -5,8 +5,7 @@ import os
 import game_framework
 import server
 
-import map_2
-import map_3
+import select_state
 
 from pico2d import *
 import game_world
@@ -274,7 +273,7 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
-                game_framework.quit()
+                game_framework.change_state(select_state)
             elif event.key == SDLK_LEFT:
                 server.character.direction = True
                 server.character.go = True
@@ -287,23 +286,11 @@ def handle_events():
             elif event.key == SDLK_DOWN:
                 if server.character.float == True:
                     server.character.spec = True
-            elif event.key == SDLK_1 and (server.character.frame_y == 7 or server.character.frame_y == 6):
-                server.character.frame_y = 9
-                server.character.frame_x = 0
-                server.character.floor = 8
-                server.character.cap = 25
-                server.character.float = True
-            elif event.key == SDLK_2 and (server.character.frame_y == 9 or server.character.frame_y == 8):
-                server.character.frame_y = 7
-                server.character.frame_x = 0
-                server.character.floor = 25
-                server.character.y += 18
-                server.character.cap = 30
-                server.character.float = True
-            elif event.key == SDLK_4:
-                game_framework.change_state(map_2)
-            elif event.key == SDLK_5:
-                game_framework.change_state(map_3)
+            elif event.key == SDLK_o:
+                if server.rect_can_see:
+                    server.rect_can_see = False
+                else:
+                    server.rect_can_see = True
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_LEFT and server.character.direction == True:
                 server.character.go = False
@@ -320,14 +307,17 @@ def update():
     if server.character.x >= 400 and server.character.x <= 4800 - 400:
         server.camera_pivot = server.character.x - 400
 
-    if server.character.x > 4800:
+    if server.character.if_die():
+        game_framework.change_state(select_state)
+
+    elif server.character.x > 4800:
         server.coin += server.pre_coin
         server.score += server.pre_coin * 100 + 5000
-        pass
+        if server.clear_stage <= 0:
+            server.clear_stage = 1
+        game_framework.change_state(select_state)
     # 이겼다 판정
 
-    if server.character.if_die():
-        pass
 
     # if left_down:
     #     server.camera_pivot -= 50

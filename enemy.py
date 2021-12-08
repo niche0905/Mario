@@ -78,7 +78,8 @@ class Goomba:
 
     def draw(self):
         Goomba.image.clip_draw(self.frame * self.width, 8 * self.height, self.width, self.height, self.x + self.width / 2 - server.camera_pivot, self.y, self.width * 2, self.height * 2)
-        draw_rectangle(*self.get_bb(True))
+        if server.rect_can_see:
+            draw_rectangle(*self.get_bb(True))
 
     def get_bb(self, camera = False):
         if camera:
@@ -190,10 +191,12 @@ class Koopa:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
             else:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
-            draw_rectangle(*self.get_bb(True))
+            if server.rect_can_see:
+                draw_rectangle(*self.get_bb(True))
         else:
             Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - 10 - server.camera_pivot, self.y, self.width * 2, self.height * 2)
-            draw_rectangle(*self.get_bb(True))
+            if server.rect_can_see:
+                draw_rectangle(*self.get_bb(True))
 
     def get_bb(self, camera = False):
         if camera:
@@ -263,7 +266,8 @@ class Flying_Koopa:
 
     def draw(self):
         Flying_Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
-        draw_rectangle(*self.get_bb(True))
+        if server.rect_can_see:
+            draw_rectangle(*self.get_bb(True))
 
     def get_bb(self, camera = False):
         if camera:
@@ -363,7 +367,8 @@ class Hammer_bro:
             Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
         else:
             Hammer_bro.image.clip_composite_draw(self.frame * self.width, 5 * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
-        draw_rectangle(*self.get_bb(True))
+        if server.rect_can_see:
+            draw_rectangle(*self.get_bb(True))
         if self.status == 1:
             if self.hammer_velocity > 0:
                 if self.hammer_frame >= 2:
@@ -375,7 +380,8 @@ class Hammer_bro:
                     Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
                     Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
-            draw_rectangle(*self.get_bb2(True))
+            if server.rect_can_see:
+                draw_rectangle(*self.get_bb2(True))
 
     def get_bb(self, camera = False):
         if camera:

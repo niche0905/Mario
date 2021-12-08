@@ -192,7 +192,8 @@ class Mario:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width, self.height)
         else:
             Mario.image.clip_composite_draw(self.frame_x * self.width + int((self.frame_x + 1) * 0.5), self.frame_y * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width, self.height)
-        draw_rectangle(*self.get_bb(True))
+        if server.rect_can_see:
+            draw_rectangle(*self.get_bb(True))
 
     def get_bb(self, camera = False):
         if camera:
