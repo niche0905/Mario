@@ -110,7 +110,7 @@ class Mario:
                         server.character.frame_y = 7
                         server.character.frame_x = 0
                         server.character.floor = 25
-                        server.character.y += 18
+                        server.character.y += 20
                         server.character.cap = 30
                         server.character.status = 0
                         server.character.float = True

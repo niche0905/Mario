@@ -70,6 +70,9 @@ class mushroom:
                             self.x = left_b - 16 - 1
                             self.direction = True
 
+        if self.y < -100:
+            game_world.remove_object(self)
+            server.objects.remove(self)
 
     def draw(self):
         mushroom.image.clip_draw(4 * self.width + 4, 2 * self.height + 16, self.width, self.height, self.x - server.camera_pivot, self.y, self.width, self.height)

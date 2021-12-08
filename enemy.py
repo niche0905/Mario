@@ -1,3 +1,5 @@
+import random
+
 from pico2d import *
 # import math
 import game_world
@@ -68,9 +70,9 @@ class Goomba:
             pass
         # 맞았다고 전달해주기
 
-
         if self.y < -100:
-            pass
+            game_world.remove_object(self)
+            server.enemys.remove(self)
 
 
     def draw(self):
@@ -145,9 +147,9 @@ class Koopa:
                 pass
             elif self.status == 2:
                 if self.direction == True:
-                    self.x -= 5
+                    self.x -= 15
                 else:
-                    self.x += 5
+                    self.x += 15
 
             self.old_y = self.y
 
@@ -177,8 +179,8 @@ class Koopa:
             pass
 
         if self.y < -100:
-            pass
-        # 자기삭제를 실행하도록 삐빅
+            game_world.remove_object(self)
+            server.enemys.remove(self)
 
     def draw(self):
         if self.status == 0:
@@ -186,20 +188,35 @@ class Koopa:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
             else:
                 Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'h', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
-            draw_rectangle(*self.get_bb())
+            draw_rectangle(*self.get_bb(True))
         else:
-            Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - server.camera_pivot, self.y, self.width * 2, self.height * 2)
+            Koopa.image.clip_composite_draw(self.frame * self.width, 8 * self.height, self.width, self.height, 0, 'n', self.x - 10 - server.camera_pivot, self.y, self.width * 2, self.height * 2)
             draw_rectangle(*self.get_bb(True))
 
     def get_bb(self, camera = False):
-        if self.status == 0:
-            return self.x - self.width / 2  - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
+        if camera:
+            if self.status == 0:
+                return self.x - self.width / 2 - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
+            else:
+                return self.x - self.width / 2 - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
         else:
-            return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+            if self.status == 0:
+                return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+            else:
+                return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
 
     def hit(self):
-        game_world.remove_object(self)
-        server.enemys.remove(self)
+        if self.status == 0:
+            self.floor = 10
+            self.status = 1
+        elif self.status == 1:
+            self.status = 2
+            if random.randint(0, 2) == 0:
+                self.direction == True
+            else:
+                self.direction == False
+        elif self.status == 2:
+            self.status = 1
 
 class Hammer_bro:
     image = None
@@ -269,7 +286,8 @@ class Hammer_bro:
             pass
 
         if self.y < -100:
-            pass
+            game_world.remove_object(self)
+            server.enemys.remove(self)
 
         if self.status == 1:
             self.hx += self.hammer_velocity
