@@ -110,8 +110,10 @@ class Mario:
                 if server.character.velocity < 0:
                     if (self.old_y - self.floor > top_e) and (bottom_c < top_e):
                         mid_x = (left_c + right_c) / 2
-                        if left_e < mid_x and mid_x < right_e:
+                        if left_e < mid_x + 10 and mid_x - 10 < right_e:
                             Mario.monster_sound.play()
+                            self.y = top_e + self.floor
+                            self.velocity = 40
 
                             # 적 죽여버려~
                             pass

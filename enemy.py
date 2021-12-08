@@ -61,8 +61,12 @@ class Goomba:
                             self.x = left_b - 16 - 1
                             self.direction = True
 
-
         self.frame = (self.frame + 1) % 2
+
+        if collide2(self, server.character):
+            pass
+        # 맞았다고 전달해주기
+
 
         if self.y < -100:
             pass
@@ -163,6 +167,10 @@ class Koopa:
 
             self.frame = 12
 
+
+        if collide2(self, server.character):
+            pass
+
         if self.y < -100:
             pass
         # 자기삭제를 실행하도록 삐빅
@@ -248,6 +256,10 @@ class Hammer_bro:
                             self.x = left_b - 16 - 1
                             self.direction = True
 
+
+        if collide2(self, server.character):
+            pass
+
         if self.y < -100:
             pass
 
@@ -259,6 +271,9 @@ class Hammer_bro:
             if abs(self.x - self.hx) < 3:
                 self.status = 0
                 self.frame = 4
+
+            if collide3(self, server.character):
+                pass
 
     def draw(self):
         if self.direction == True:
@@ -277,12 +292,19 @@ class Hammer_bro:
                     Hammer_bro.image.clip_composite_draw((1 - self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
                 else:
                     Hammer_bro.image.clip_composite_draw((self.hammer_frame % 2) * self.hammer_width + 29 * 9, ((self.hammer_frame // 2)) * self.hammer_height + 29 * 5, self.hammer_width, self.hammer_height, 0, 'h', self.hx - server.camera_pivot, self.hy, self.hammer_width * 2, self.hammer_height * 2)
+            draw_rectangle(*self.get_bb2(True))
 
     def get_bb(self, camera = False):
         if camera:
             return self.x - self.width / 2 - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
         else:
             return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+
+    def get_bb2(self, camera = False):
+        if camera:
+            return self.hx - self.hammer_width / 2 - server.camera_pivot, self.hy - self.hammer_height / 2, self.hx + self.hammer_width / 2 - server.camera_pivot, self.hy + self.hammer_height / 2
+        else:
+            return self.hx - self.hammer_width / 2, self.hy - self.hammer_height / 2, self.hx + self.width / 2, self.hy + self.hammer_height / 2
 
 
 def collide(a, b):
@@ -300,6 +322,36 @@ def collide(a, b):
 
     return True
 
+def collide2(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+    top_a -= 10
+
+    if left_a >= right_b:
+        return False
+    if right_a <= left_b:
+        return False
+    if top_a <= bottom_b:
+        return False
+    if bottom_a >= top_b:
+        return False
+
+    return True
+
+def collide3(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb2()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a >= right_b:
+        return False
+    if right_a <= left_b:
+        return False
+    if top_a <= bottom_b:
+        return False
+    if bottom_a >= top_b:
+        return False
+
+    return True
 
 # def handle_events():
 #     global running
