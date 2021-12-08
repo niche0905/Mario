@@ -12,7 +12,8 @@ from pico2d import *
 import game_world
 
 from player import Mario
-from block import hard_brick, soft_brick, grass_left, grass_mid, grass_right, random_block, mush_left, mush_mid, mush_right, pipe_left, pipe_right, mid_left, mid_right
+from block import hard_brick, soft_brick, grass_left, grass_mid, grass_right, grass_bottom1, grass_bottom2, random_block, mush_left, mush_mid, mush_right, pipe_left, pipe_right, mid_left, mid_right
+from object import coin, mushroom
 
 name = "Map1State"
 
@@ -40,6 +41,10 @@ def enter():
     server.blocks.append(grass_mid(675, 25))
     server.blocks.append(grass_mid(725, 25))
     server.blocks.append(grass_mid(775, 25))
+
+    server.objects.append(coin(525, 75))
+    server.objects.append(coin(575, 75))
+    server.objects.append(coin(625, 75))
 
     server.blocks.append(soft_brick(375, 275))
     server.blocks.append(soft_brick(425, 275))
@@ -94,6 +99,11 @@ def enter():
     server.blocks.append(soft_brick(2075, 325))
     server.blocks.append(soft_brick(2125, 325))
 
+    server.objects.append(coin(1925, 375))
+    server.objects.append(coin(1975, 375))
+    server.objects.append(coin(2025, 375))
+    server.objects.append(coin(2075, 375))
+
     server.blocks.append(grass_mid(2425, 25)) # 2400
     server.blocks.append(grass_mid(2475, 25))
     server.blocks.append(grass_mid(2425, 25))
@@ -109,6 +119,16 @@ def enter():
     server.blocks.append(grass_mid(3075, 75))
     server.blocks.append(grass_mid(3125, 75))
     server.blocks.append(grass_mid(3175, 75))
+    server.ornblocks.append(grass_bottom1(2975, 25))
+    server.ornblocks.append(grass_bottom2(3025, 25))
+    server.ornblocks.append(grass_bottom1(3075, 25))
+    server.ornblocks.append(grass_bottom2(3125, 25))
+    server.ornblocks.append(grass_bottom1(3175, 25))
+
+    server.objects.append(coin(3125, 125))
+    server.objects.append(coin(3175, 125))
+    server.objects.append(coin(3225, 125))
+    server.objects.append(coin(3275, 125))
 
     server.blocks.append(grass_mid(3225, 75))  # 3200
     server.blocks.append(grass_mid(3275, 75))
@@ -122,6 +142,18 @@ def enter():
     server.blocks.append(grass_mid(3675, 75))
     server.blocks.append(grass_mid(3725, 75))
     server.blocks.append(grass_right(3775, 75))
+    server.ornblocks.append(grass_bottom2(3225, 25))
+    server.ornblocks.append(grass_bottom1(3275, 25))
+    server.ornblocks.append(grass_bottom2(3325, 25))
+    server.ornblocks.append(grass_bottom1(3375, 25))
+    server.ornblocks.append(grass_bottom2(3425, 25))
+    server.ornblocks.append(grass_bottom1(3475, 25))
+    server.ornblocks.append(grass_bottom2(3525, 25))
+    server.ornblocks.append(grass_bottom1(3575, 25))
+    server.ornblocks.append(grass_bottom2(3625, 25))
+    server.ornblocks.append(grass_bottom1(3675, 25))
+    server.ornblocks.append(grass_bottom2(3725, 25))
+    server.ornblocks.append(grass_bottom1(3775, 25))
     server.blocks.append(grass_mid(3825, 25))
     server.blocks.append(grass_mid(3875, 25))
     server.blocks.append(grass_mid(3925, 25))
@@ -140,9 +172,72 @@ def enter():
     server.blocks.append(grass_mid(4675, 325))
     server.blocks.append(grass_mid(4725, 325))
     server.blocks.append(grass_mid(4775, 325))
+    server.ornblocks.append(grass_bottom2(4275, 25))
+    server.ornblocks.append(grass_bottom1(4325, 25))
+    server.ornblocks.append(grass_bottom2(4375, 25))
+    server.ornblocks.append(grass_bottom1(4425, 25))
+    server.ornblocks.append(grass_bottom2(4475, 25))
+    server.ornblocks.append(grass_bottom1(4525, 25))
+    server.ornblocks.append(grass_bottom2(4575, 25))
+    server.ornblocks.append(grass_bottom1(4625, 25))
+    server.ornblocks.append(grass_bottom2(4675, 25))
+    server.ornblocks.append(grass_bottom1(4725, 25))
+    server.ornblocks.append(grass_bottom2(4775, 25))
+
+    server.ornblocks.append(grass_bottom1(4325, 75))
+    server.ornblocks.append(grass_bottom2(4375, 75))
+    server.ornblocks.append(grass_bottom1(4425, 75))
+    server.ornblocks.append(grass_bottom2(4475, 75))
+    server.ornblocks.append(grass_bottom1(4525, 75))
+    server.ornblocks.append(grass_bottom2(4575, 75))
+    server.ornblocks.append(grass_bottom1(4625, 75))
+    server.ornblocks.append(grass_bottom2(4675, 75))
+    server.ornblocks.append(grass_bottom1(4725, 75))
+    server.ornblocks.append(grass_bottom2(4775, 75))
+
+    server.ornblocks.append(grass_bottom2(4375, 125))
+    server.ornblocks.append(grass_bottom1(4425, 125))
+    server.ornblocks.append(grass_bottom2(4475, 125))
+    server.ornblocks.append(grass_bottom1(4525, 125))
+    server.ornblocks.append(grass_bottom2(4575, 125))
+    server.ornblocks.append(grass_bottom1(4625, 125))
+    server.ornblocks.append(grass_bottom2(4675, 125))
+    server.ornblocks.append(grass_bottom1(4725, 125))
+    server.ornblocks.append(grass_bottom2(4775, 125))
+
+    server.ornblocks.append(grass_bottom1(4425, 175))
+    server.ornblocks.append(grass_bottom2(4475, 175))
+    server.ornblocks.append(grass_bottom1(4525, 175))
+    server.ornblocks.append(grass_bottom2(4575, 175))
+    server.ornblocks.append(grass_bottom1(4625, 175))
+    server.ornblocks.append(grass_bottom2(4675, 175))
+    server.ornblocks.append(grass_bottom1(4725, 175))
+    server.ornblocks.append(grass_bottom2(4775, 175))
+
+    server.ornblocks.append(grass_bottom2(4475, 225))
+    server.ornblocks.append(grass_bottom1(4525, 225))
+    server.ornblocks.append(grass_bottom2(4575, 225))
+    server.ornblocks.append(grass_bottom1(4625, 225))
+    server.ornblocks.append(grass_bottom2(4675, 225))
+    server.ornblocks.append(grass_bottom1(4725, 225))
+    server.ornblocks.append(grass_bottom2(4775, 225))
+
+    server.ornblocks.append(grass_bottom1(4525, 275))
+    server.ornblocks.append(grass_bottom2(4575, 275))
+    server.ornblocks.append(grass_bottom1(4625, 275))
+    server.ornblocks.append(grass_bottom2(4675, 275))
+    server.ornblocks.append(grass_bottom1(4725, 275))
+    server.ornblocks.append(grass_bottom2(4775, 275))
+
+    server.blocks.append(grass_mid(4825, 325))
+    server.blocks.append(grass_mid(4875, 325))
+    server.blocks.append(grass_mid(4925, 325))
+    server.blocks.append(grass_mid(4975, 325))
 
     game_world.add_object(server.character, 1)
     game_world.add_objects(server.blocks, 0)
+    game_world.add_objects(server.ornblocks, 0)
+    game_world.add_objects(server.objects, 1)
 
     music = load_music('background.mp3')
     music.set_volume(16)
@@ -157,7 +252,11 @@ def exit():
     game_world.clear()
     server.character = None
     server.blocks = []
+    server.enemys = []
+    server.ornblocks = []
+    server.objects = []
     server.camera_pivot = 0
+    server.pre_coin = 0
 
     del(music)
     del(background)
@@ -218,10 +317,17 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    if server.character.x < 0:
-        server.characterx = 0
     if server.character.x >= 400 and server.character.x <= 4800 - 400:
         server.camera_pivot = server.character.x - 400
+
+    if server.character.x > 4800:
+        server.coin += server.pre_coin
+        server.score += server.pre_coin * 100 + 5000
+        pass
+    # 이겼다 판정
+
+    if server.character.if_die():
+        pass
 
     # if left_down:
     #     server.camera_pivot -= 50

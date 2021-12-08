@@ -24,6 +24,8 @@ from block import soft_brick
 from block import grass_left
 from block import grass_mid
 from block import grass_right
+from block import grass_bottom1
+from block import grass_bottom2
 from block import random_block
 from block import mush_left
 from block import mush_mid
@@ -81,6 +83,8 @@ def enter():
     server.blocks.append(mid_left())
     server.blocks.append(mid_right())
     server.blocks.append(cave_rock())
+    server.blocks.append(grass_bottom1())
+    server.blocks.append(grass_bottom2())
     game_world.add_object(server.character, 0)
     game_world.add_objects(server.enemys, 0)
     game_world.add_objects(server.objects, 0)
@@ -165,6 +169,9 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
+    if server.character.if_die():
+        pass
+    # 스테이트 바꾸기
 
 
 

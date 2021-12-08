@@ -18,7 +18,8 @@ class Mario:
     jump_sound = None
     monster_sound = None
     random_sound = None
-    def __init__(self, x = 500, y = 300):
+    coin_sound = None
+    def __init__(self, x = 500, y = 200):
         if Mario.image == None:
             Mario.image = load_image('mario2.png')
         self.x, self.y = x, y
@@ -35,6 +36,7 @@ class Mario:
         self.cap = 30
         self.adtime = 0
         self.status = 0 # 0 bit mario 1 small mario
+        self.dead = False
         if Mario.jump_sound == None:
             Mario.jump_sound = load_wav('jump.mp3')
             Mario.jump_sound.set_volume(16)
@@ -44,14 +46,18 @@ class Mario:
         if Mario.random_sound == None:
             Mario.random_sound = load_wav('random.mp3')
             Mario.random_sound.set_volume(16)
+        if Mario.coin_sound == None:
+            Mario.coin_sound = load_wav('coin.mp3')
+            Mario.coin_sound.set_volume(16)
 
 
     def update(self):
         if self.go:
-            if self.direction:
-                self.x -= 18
-            else:
-                self.x += 18
+            if self.frame_x != 7:
+                if self.direction:
+                    self.x -= 18
+                else:
+                    self.x += 18
 
             if self.float == False:
                 if self.frame_y == 7:
@@ -75,6 +81,9 @@ class Mario:
                 self.frame_x = 0
                 if self.frame_y == 6 or self.frame_y == 8:
                     self.frame_y = self.frame_y + 1
+
+        if server.character.x < 10:
+            server.character.x = 10
 
         if self.jump:
             Mario.jump_sound.play()
@@ -118,6 +127,7 @@ class Mario:
                         self.adtime = 5
                     o.hit()
                 elif type(o) == object.coin:
+                    Mario.coin_sound.play()
                     server.pre_coin += 1
                     o.hit()
 
@@ -174,7 +184,7 @@ class Mario:
             self.adtime -= 1
 
         if self.y < -100:
-            pass
+            self.dead = True
             # 마리오가 죽어버렸지 모얌얌
 
     def draw(self):
@@ -201,10 +211,13 @@ class Mario:
                 self.float = True
                 self.status = 1
             else:
-                pass
+                self.dead = True
             # 죽은건가?
 
             self.adtime = 5
+
+    def if_die(self):
+        return self.dead
 
 # image = load_image('mario2.png')
 

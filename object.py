@@ -7,10 +7,10 @@ g = 10
 
 class coin:
     image = None
-    def __init__(self):
+    def __init__(self, x = 500, y = 300):
         if coin.image == None:
             coin.image = load_image('mario2.png')
-        self.x, self.y = 500, 300
+        self.x, self.y = x, y
         self.width, self.height = 48, 48
 
     def update(self):

@@ -105,6 +105,44 @@ class grass_right:
     def hit(self):
         pass
 
+class grass_bottom1:
+    image = None
+    def __init__(self, x = 200, y = 400):
+        if grass_bottom1.image == None:
+            grass_bottom1.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_bottom1.image.clip_draw(716, 424, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
+class grass_bottom2:
+    image = None
+    def __init__(self, x = 250, y = 400):
+        if grass_bottom2.image == None:
+            grass_bottom2.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        grass_bottom2.image.clip_draw(716, 391, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
 class random_block:
     image = None
     sound = None

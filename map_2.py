@@ -41,6 +41,48 @@ def enter():
     server.blocks.append(cave_rock(725, 75))
     server.blocks.append(cave_rock(775, 75))
 
+    server.ornblocks.append(cave_rock(25, 575))
+    server.ornblocks.append(cave_rock(75, 575))
+    server.ornblocks.append(cave_rock(125, 575))
+    server.ornblocks.append(cave_rock(175, 575))
+    server.ornblocks.append(cave_rock(225, 575))
+    server.ornblocks.append(cave_rock(275, 575))
+    server.ornblocks.append(cave_rock(325, 575))
+    server.ornblocks.append(cave_rock(375, 575))
+    server.ornblocks.append(cave_rock(425, 575))
+    server.ornblocks.append(cave_rock(475, 575))
+    server.ornblocks.append(cave_rock(525, 575))
+    server.ornblocks.append(cave_rock(575, 575))
+    server.ornblocks.append(cave_rock(625, 575))
+    server.ornblocks.append(cave_rock(675, 575))
+    server.ornblocks.append(cave_rock(725, 575))
+    server.ornblocks.append(cave_rock(775, 575))
+
+    server.ornblocks.append(cave_rock(25, 25))
+    server.ornblocks.append(cave_rock(75, 25))
+    server.ornblocks.append(cave_rock(125, 25))
+    server.ornblocks.append(cave_rock(175, 25))
+    server.ornblocks.append(cave_rock(225, 25))
+    server.ornblocks.append(cave_rock(275, 25))
+    server.ornblocks.append(cave_rock(325, 25))
+    server.ornblocks.append(cave_rock(375, 25))
+    server.ornblocks.append(cave_rock(425, 25))
+    server.ornblocks.append(cave_rock(475, 25))
+    server.ornblocks.append(cave_rock(525, 25))
+    server.ornblocks.append(cave_rock(575, 25))
+    server.ornblocks.append(cave_rock(625, 25))
+    server.ornblocks.append(cave_rock(675, 25))
+    server.ornblocks.append(cave_rock(725, 25))
+    server.ornblocks.append(cave_rock(775, 25))
+
+    server.ornblocks.append(cave_rock(825, 575))
+    server.ornblocks.append(cave_rock(875, 575))
+    server.ornblocks.append(cave_rock(925, 575))
+    server.ornblocks.append(cave_rock(975, 575))
+    server.ornblocks.append(cave_rock(1025, 575))
+    server.ornblocks.append(cave_rock(1075, 575))
+    server.ornblocks.append(cave_rock(1125, 575))
+
     server.blocks.append(cave_rock(1025, 75))
     server.blocks.append(cave_rock(1075, 75))
     server.blocks.append(cave_rock(1125, 75))
@@ -53,6 +95,7 @@ def enter():
     server.blocks.append(cave_rock(1475, 75))
     server.blocks.append(cave_rock(1525, 75))
     server.blocks.append(cave_rock(1575, 75))
+
     server.blocks.append(cave_rock(1625, 75))
     server.blocks.append(cave_rock(1625, 125))
     server.blocks.append(cave_rock(1625, 175))
@@ -80,6 +123,7 @@ def enter():
     server.blocks.append(cave_rock(1475, 375))
     server.blocks.append(cave_rock(1525, 375))
     server.blocks.append(cave_rock(1575, 375))
+
     server.blocks.append(cave_rock(1625, 375))
     server.blocks.append(cave_rock(1675, 375))
     server.blocks.append(cave_rock(1225, 575))
@@ -96,10 +140,10 @@ def enter():
     server.blocks.append(cave_rock(1775, 575))
 
 
-
-
     game_world.add_object(server.character, 1)
     game_world.add_objects(server.blocks, 0)
+    game_world.add_objects(server.ornblocks, 0)
+    game_world.add_objects(server.objects, 1)
 
     music = load_music('background.mp3')
     music.set_volume(16)
@@ -114,7 +158,11 @@ def exit():
     game_world.clear()
     server.character = None
     server.blocks = []
+    server.enemys = []
+    server.ornblocks = []
+    server.objects = []
     server.camera_pivot = 0
+    server.pre_coin = 0
 
     del(music)
     del(background)
@@ -173,10 +221,17 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    if server.character.x < 0:
-        server.characterx = 0
     if server.character.x >= 400 and server.character.x <= 4800 - 400:
         server.camera_pivot = server.character.x - 400
+
+    if server.character.x > 4800:
+        server.coin += server.pre_coin
+        server.score += server.pre_coin * 100 + 5000
+        pass
+    # 이겼다 판정
+
+    if server.character.if_die():
+        pass
 
 def draw():
     clear_canvas()
