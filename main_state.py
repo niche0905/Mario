@@ -5,9 +5,7 @@ import os
 from pico2d import *
 
 import game_framework
-import map_1
-import map_2
-import map_3
+import select_state
 import server
 
 import game_world
@@ -53,7 +51,7 @@ background = None
 def enter():
     global music
     global background
-    server.character = Mario()
+    server.character = Mario(900, 300)
     server.enemys.append(Goomba())
     server.enemys.append(Koopa())
     server.enemys.append(Hammer_bro())
@@ -140,7 +138,7 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_ESCAPE:
-                game_framework.quit()
+                game_framework.change_state(select_state)
             elif event.key == SDLK_LEFT:
                 server.character.direction = True
                 server.character.go = True
@@ -166,10 +164,11 @@ def handle_events():
                 server.character.y += 18
                 server.character.cap = 30
                 server.character.float = True
-            elif event.key == SDLK_3:
-                game_framework.change_state(map_1)
-            elif event.key == SDLK_5:
-                game_framework.change_state(map_3)
+            elif event.key == SDLK_o:
+                if server.rect_can_see:
+                    server.rect_can_see = False
+                else:
+                    server.rect_can_see = True
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_LEFT and server.character.direction == True:
                 server.character.go = False

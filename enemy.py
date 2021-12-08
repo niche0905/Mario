@@ -23,6 +23,8 @@ class Goomba:
         self.direction = True # T left F right
         self.death = False
         self.old_y = 0
+        self.float = True
+        self.dby = 0
 
     def update(self):
         if self.death:
@@ -47,6 +49,7 @@ class Goomba:
 
         self.velocity -= g
         self.y += self.velocity
+        self.float = True
 
         for b in server.blocks:
             if collide(self, b):
@@ -56,6 +59,8 @@ class Goomba:
                     if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                         self.y = self.floor + top_b
                         self.velocity = 0
+                        self.float = False
+                        self.dby = b.y
                     elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
                         if self.direction:
                             self.x = right_b + 16 + 1
@@ -63,6 +68,21 @@ class Goomba:
                         else:
                             self.x = left_b - 16 - 1
                             self.direction = True
+
+        flag = True
+        if self.float == False and self.status == 0:
+            if self.direction:
+                for b in server.blocks:
+                    if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
+                        flag = False
+                if flag:
+                    self.direction = False
+            else:
+                for b in server.blocks:
+                    if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
+                        flag = False
+                if flag:
+                    self.direction = True
 
         self.frame = (self.frame + 1) % 2
 
@@ -109,7 +129,8 @@ class Koopa:
         self.direction = True # T left F right
         self.death = False
         self.old_y = 0
-
+        self.float = True
+        self.dby = 0
 
     def update(self):
         if self.death:
@@ -126,6 +147,7 @@ class Koopa:
 
             self.velocity -= g
             self.y += self.velocity
+            self.float = True
 
             for b in server.blocks:
                 if collide(self, b):
@@ -135,6 +157,8 @@ class Koopa:
                         if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                             self.y = self.floor + top_b
                             self.velocity = 0
+                            self.float = False
+                            self.dby = b.y
                         elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
                             if self.direction:
                                 self.x = right_b + 16 + 1
@@ -142,6 +166,21 @@ class Koopa:
                             else:
                                 self.x = left_b - 16 - 1
                                 self.direction = True
+
+            flag = True
+            if self.float == False and self.status == 0:
+                if self.direction:
+                    for b in server.blocks:
+                        if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
+                            flag = False
+                    if flag:
+                        self.direction = False
+                else:
+                    for b in server.blocks:
+                        if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
+                            flag = False
+                    if flag:
+                        self.direction = True
 
             self.frame = (self.frame - 5 + 1) % 2 + 5
         else:
@@ -173,6 +212,21 @@ class Koopa:
                             else:
                                 self.x = left_b - 16 - 1
                                 self.direction = True
+
+            flag = True
+            if self.float == False and self.status == 0:
+                if self.direction:
+                    for b in server.blocks:
+                        if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
+                            flag = False
+                    if flag:
+                        self.direction = False
+                else:
+                    for b in server.blocks:
+                        if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
+                            flag = False
+                    if flag:
+                        self.direction = True
 
             self.frame = 12
 
