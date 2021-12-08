@@ -2,6 +2,7 @@ from pico2d import *
 # import math
 import game_world
 import server
+import object
 
 PIXEL_PER_METER = (50.0 / 1.0)
 RUN_SPEED_KMPH = 10.0  # Km / Hour
@@ -31,6 +32,8 @@ class Mario:
         self.velocity = 0
         self.floor = 25
         self.cap = 30
+        self.adtime = 0
+        self.status = 0 # 0 bit mario 1 small mario
         if Mario.jump_sound == None:
             Mario.jump_sound = load_wav('jump.mp3')
             Mario.jump_sound.set_volume(16)
@@ -102,7 +105,19 @@ class Mario:
 
         for o in server.objects:
             if collide(server.character, o):
-                pass
+                if type(o) == object.mushroom:
+                    if self.status == 1:
+                        server.character.frame_y = 7
+                        server.character.frame_x = 0
+                        server.character.floor = 25
+                        server.character.y += 18
+                        server.character.cap = 30
+                        server.character.status = 0
+                        server.character.float = True
+                    o.hit()
+                elif type(o) == object.coin:
+                    server.pre_coin += 1
+                    o.hit()
 
         for e in server.enemys:
             if collide(server.character, e):
@@ -115,10 +130,7 @@ class Mario:
                             Mario.monster_sound.play()
                             self.y = top_e + self.floor
                             self.velocity = 40
-
-                            game_world.remove_object(e)
-                            server.enemys.remove(e)
-                            pass
+                            e.hit()
 
         for b in server.blocks:
             if collide(server.character, b):

@@ -1,5 +1,6 @@
 from pico2d import *
 # import math
+import game_world
 import server
 
 # WIDTH, HEIGHT = 800, 600
@@ -81,6 +82,10 @@ class Goomba:
             return self.x - self.width / 2 - server.camera_pivot, self.y - self.floor, self.x + self.width / 2 - server.camera_pivot, self.y + self.height / 2
         else:
             return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        game_world.remove_object(self)
+        server.enemys.remove(self)
 
 
     # def death_check(self):
@@ -192,6 +197,9 @@ class Koopa:
         else:
             return self.x - self.width / 2, self.y - self.floor, self.x + self.width / 2, self.y + self.height / 2
 
+    def hit(self):
+        game_world.remove_object(self)
+        server.enemys.remove(self)
 
 class Hammer_bro:
     image = None
@@ -305,6 +313,10 @@ class Hammer_bro:
             return self.hx - self.hammer_width / 2 - server.camera_pivot, self.hy - self.hammer_height / 2, self.hx + self.hammer_width / 2 - server.camera_pivot, self.hy + self.hammer_height / 2
         else:
             return self.hx - self.hammer_width / 2, self.hy - self.hammer_height / 2, self.hx + self.width / 2, self.hy + self.hammer_height / 2
+
+    def hit(self):
+        game_world.remove_object(self)
+        server.enemys.remove(self)
 
 
 def collide(a, b):

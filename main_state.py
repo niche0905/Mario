@@ -138,6 +138,7 @@ def handle_events():
                 server.character.frame_x = 0
                 server.character.floor = 8
                 server.character.cap = 25
+                server.character.status = 1
                 server.character.float = True
             elif event.key == SDLK_2 and (server.character.frame_y == 9 or server.character.frame_y == 8):
                 server.character.frame_y = 7
@@ -145,6 +146,7 @@ def handle_events():
                 server.character.floor = 25
                 server.character.y += 18
                 server.character.cap = 30
+                server.character.status = 0
                 server.character.float = True
             elif event.key == SDLK_3:
                 game_framework.change_state(map_1)

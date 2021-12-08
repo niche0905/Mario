@@ -1,5 +1,9 @@
 from pico2d import *
+import game_world
 import server
+
+g = 10
+
 
 class coin:
     image = None
@@ -22,8 +26,10 @@ class coin:
         else:
             return self.x - 24, self.y - 22, self.x + 8, self.y + 16
 
+    def hit(self):
+        game_world.remove_object(self)
+        server.objects.remove(self)
 
-g = 10
 
 class mushroom:
     image = None
@@ -75,6 +81,9 @@ class mushroom:
         else:
             return self.x - 20, self.y - self.floor, self.x + 20, self.y + 16
 
+    def hit(self):
+        game_world.remove_object(self)
+        server.objects.remove(self)
 
 
 def collide(a, b):
