@@ -25,22 +25,28 @@ class hard_brick:
 
 class soft_brick:
     image = None
+    sound = None
     def __init__(self, x = 350, y = 450):
-        if grass_right.image == None:
-            grass_right.image = load_image('blocks.png')
+        if soft_brick.image == None:
+            soft_brick.image = load_image('blocks.png')
+        if soft_brick.sound == None:
+            soft_brick.sound = load_wav('brick.mp3')
+            soft_brick.sound.set_volume(16)
         self.x, self.y, self.width, self.height = x, y, 50, 50
 
     def update(self):
         pass
 
     def draw(self):
-        grass_right.image.clip_draw(2, 942, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+        soft_brick.image.clip_draw(2, 942, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
 
     def get_bb(self):
         return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
 
     def hit(self):
-        pass
+        soft_brick.sound.play()
+        game_world.remove_object(self)
+        server.blocks.remove(self)
 
 class grass_left:
     image = None
@@ -107,6 +113,7 @@ class random_block:
             random_block.image = load_image('blocks.png')
         if random_block.sound == None:
             random_block.sound = load_wav('random.mp3')
+            random_block.sound.set_volume(16)
         self.x, self.y, self.width, self.height = x, y, 50, 50
         self.frame = 0 # 0 1 2 3
         self.able = True

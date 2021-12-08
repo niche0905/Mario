@@ -1,5 +1,6 @@
 from pico2d import *
 # import math
+import game_world
 import server
 
 PIXEL_PER_METER = (50.0 / 1.0)
@@ -115,7 +116,8 @@ class Mario:
                             self.y = top_e + self.floor
                             self.velocity = 40
 
-                            # 적 죽여버려~
+                            game_world.remove_object(e)
+                            server.enemys.remove(e)
                             pass
 
         for b in server.blocks:
