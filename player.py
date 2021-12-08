@@ -3,6 +3,7 @@ from pico2d import *
 import game_world
 import server
 import object
+import block
 
 PIXEL_PER_METER = (50.0 / 1.0)
 RUN_SPEED_KMPH = 10.0  # Km / Hour
@@ -139,11 +140,19 @@ class Mario:
                 left_b, bottom_b, right_b, top_b = b.get_bb()
                 if server.character.velocity < 0:
                     if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
-                        server.character.y = server.character.floor + top_b
-                        server.character.float = False
-                        server.character.velocity = 0
-                        if self.frame_x == 3 or self.frame_x == 7:
+                        if self.frame_x == 7:
+                            if type(b) == block.soft_brick or type(b) == block.random_block:
+                                b.hit()
+                            else:
+                                server.character.frame_x = 0
+                                server.character.y = server.character.floor + top_b
+                                server.character.float = False
+                                server.character.velocity = 0
+                        else:
                             server.character.frame_x = 0
+                            server.character.y = server.character.floor + top_b
+                            server.character.float = False
+                            server.character.velocity = 0
                     elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
                         if self.direction:
                             self.x = right_b + 16 + 1
