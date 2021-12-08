@@ -12,6 +12,7 @@ import game_world
 
 from player import Mario
 from block import soft_brick, grass_left, grass_mid, grass_right, grass_bottom1, grass_bottom2, random_block, pipe_left, pipe_right, mid_left, mid_right
+from enemy import Goomba, Koopa, Hammer_bro
 from object import coin, mushroom
 
 name = "Map1State"
@@ -61,12 +62,17 @@ def enter():
     server.blocks.append(grass_mid(1075, 25))
     server.blocks.append(grass_right(1125, 25))
 
+    server.enemys.append(Goomba(950, 75))
+
     server.blocks.append(grass_left(1325, 25))
     server.blocks.append(grass_mid(1375, 25))
     server.blocks.append(grass_mid(1425, 25))
     server.blocks.append(grass_mid(1475, 25))
     server.blocks.append(grass_mid(1525, 25))
     server.blocks.append(grass_mid(1575, 25))
+
+    server.enemys.append(Koopa(2000, 75))
+    server.enemys.append(Goomba(2000, 375))
 
     server.blocks.append(grass_mid(1625, 25)) # 1600
     server.blocks.append(grass_mid(1675, 25))
@@ -112,6 +118,8 @@ def enter():
     server.blocks.append(grass_mid(2625, 25))
     server.blocks.append(grass_mid(2675, 25))
     server.blocks.append(grass_right(2725, 25))
+
+    server.enemys.append(Hammer_bro(3400, 125))
 
     server.blocks.append(grass_left(2975, 75))
     server.blocks.append(grass_mid(3025, 75))
@@ -234,6 +242,7 @@ def enter():
     server.blocks.append(grass_mid(4975, 325))
 
     game_world.add_object(server.character, 1)
+    game_world.add_objects(server.enemys, 1)
     game_world.add_objects(server.blocks, 0)
     game_world.add_objects(server.ornblocks, 0)
     game_world.add_objects(server.objects, 1)

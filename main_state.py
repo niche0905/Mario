@@ -51,7 +51,7 @@ background = None
 def enter():
     global music
     global background
-    server.character = Mario(900, 300)
+    server.character = Mario(700, 300)
     server.enemys.append(Goomba())
     server.enemys.append(Koopa())
     server.enemys.append(Hammer_bro())

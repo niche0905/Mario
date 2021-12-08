@@ -12,6 +12,7 @@ import game_world
 
 from player import Mario
 from block import hard_brick, soft_brick, random_block, mush_left, mush_mid, mush_right, mush_neck, mush_bottom, cloud_left, cloud_mid, cloud_right, pipe_left, pipe_right, mid_left, mid_right
+from enemy import Goomba, Koopa, Hammer_bro, Flying_Koopa
 from object import coin, mushroom
 
 name = "Map3State"
@@ -71,13 +72,19 @@ def enter():
     server.blocks.append(mush_mid(1375, 325))
     server.blocks.append(mush_right(1425, 325))
 
+    server.enemys.append(Hammer_bro(1225, 375))
+
     server.blocks.append(cloud_left(1675, 225))
     server.blocks.append(cloud_mid(1725, 225))
     server.blocks.append(cloud_right(1775, 225))
 
+    server.enemys.append(Flying_Koopa(1850, 200))
+
     server.blocks.append(cloud_left(1975, 275))
     server.blocks.append(cloud_mid(2025, 275))
     server.blocks.append(cloud_right(2075, 275))
+
+    server.enemys.append(Flying_Koopa(2200, 250))
 
     server.blocks.append(cloud_left(2325, 175))
     server.blocks.append(cloud_mid(2375, 175))
@@ -113,6 +120,8 @@ def enter():
     server.ornblocks.append(mush_bottom(3275, 25))
     server.blocks.append(mush_mid(3325, 375))
     server.blocks.append(mush_right(3375, 375))
+
+    server.enemys.append(Flying_Koopa(3500, 300))
 
     server.blocks.append(pipe_left(3625, 325))
     server.blocks.append(pipe_right(3675, 325))
@@ -162,9 +171,13 @@ def enter():
     server.blocks.append(mid_left(4025, 25))
     server.blocks.append(mid_right(4075, 25))
 
+    server.enemys.append(Flying_Koopa(4200, 250))
+
     server.blocks.append(cloud_left(4325, 275))
     server.blocks.append(cloud_mid(4375, 275))
     server.blocks.append(cloud_right(4425, 275))
+
+    server.enemys.append(Flying_Koopa(4550, 250))
 
     server.blocks.append(mush_left(4625, 375))
     server.blocks.append(mush_mid(4675, 375))
@@ -172,6 +185,7 @@ def enter():
     server.blocks.append(mush_mid(4775, 375))
 
     game_world.add_object(server.character, 1)
+    game_world.add_objects(server.enemys, 1)
     game_world.add_objects(server.blocks, 0)
     game_world.add_objects(server.ornblocks, 0)
     game_world.add_objects(server.objects, 1)

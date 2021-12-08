@@ -30,7 +30,7 @@ class Goomba:
         if self.death:
             # del(self) # 이거 되냐?
             pass
-        if abs(server.character.x - self.x) < 100:
+        if abs(server.character.x - self.x) < 200:
             self.status = 1
         else:
             self.status = 0
@@ -167,8 +167,9 @@ class Koopa:
                                 self.x = left_b - 16 - 1
                                 self.direction = True
 
+
             flag = True
-            if self.float == False and self.status == 0:
+            if self.float == False:
                 if self.direction:
                     for b in server.blocks:
                         if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
@@ -181,6 +182,7 @@ class Koopa:
                             flag = False
                     if flag:
                         self.direction = True
+
 
             self.frame = (self.frame - 5 + 1) % 2 + 5
         else:
@@ -213,20 +215,6 @@ class Koopa:
                                 self.x = left_b - 16 - 1
                                 self.direction = True
 
-            flag = True
-            if self.float == False and self.status == 0:
-                if self.direction:
-                    for b in server.blocks:
-                        if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
-                            flag = False
-                    if flag:
-                        self.direction = False
-                else:
-                    for b in server.blocks:
-                        if b.y == self.dby and b.x == self.x - (self.x % 50) + 25:
-                            flag = False
-                    if flag:
-                        self.direction = True
 
             self.frame = 12
 
@@ -365,7 +353,7 @@ class Hammer_bro:
         if self.status == 0:
             self.frame = 3
 
-        if abs(server.character.x - self.x) < 300 and abs(30 - self.y) < 30 and self.status == 0:
+        if abs(server.character.x - self.x) < 300 and abs(server.character.y - self.y) < 30 and self.status == 0:
             self.status = 1
             self.frame = 5
             if self.direction:
@@ -388,13 +376,6 @@ class Hammer_bro:
                     if (self.old_y - self.floor >= top_b) and (bottom_c < top_b):
                         self.y = self.floor + top_b
                         self.velocity = 0
-                    elif (self.old_y - self.floor <= top_b) and (bottom_c < top_b):
-                        if self.direction:
-                            self.x = right_b + 16 + 1
-                            self.direction = False
-                        else:
-                            self.x = left_b - 16 - 1
-                            self.direction = True
 
 
         if collide2(self, server.character):
@@ -405,7 +386,7 @@ class Hammer_bro:
             server.enemys.remove(self)
 
         if self.status == 1:
-            self.hx += self.hammer_velocity
+            self.hx += self.hammer_velocity * 2
             self.hammer_frame = (self.hammer_frame + 1) % 4
             if abs(self.x - self.hx) > 400:
                 self.hammer_velocity *= -1

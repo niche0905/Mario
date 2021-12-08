@@ -12,6 +12,7 @@ import game_world
 
 from player import Mario
 from block import soft_brick, pipe_left, pipe_right, mid_left, mid_right, pipe_top, pipe_bottom, mid_top, mid_bottom, cave_rock
+from enemy import Goomba, Koopa, Hammer_bro
 from object import coin, mushroom
 
 name = "Map2State"
@@ -96,6 +97,8 @@ def enter():
     server.blocks.append(cave_rock(1525, 75))
     server.blocks.append(cave_rock(1575, 75))
 
+    server.enemys.append(Goomba(1500, 125))
+
     server.ornblocks.append(cave_rock(1025, 25))
     server.ornblocks.append(cave_rock(1075, 25))
     server.ornblocks.append(cave_rock(1125, 25))
@@ -144,6 +147,8 @@ def enter():
     server.blocks.append(cave_rock(1475, 375))
     server.blocks.append(cave_rock(1525, 375))
     server.blocks.append(cave_rock(1575, 375))
+
+    server.enemys.append(Koopa (1500, 425))
 
     server.blocks.append(cave_rock(1625, 375))
     server.blocks.append(cave_rock(1675, 375))
@@ -261,6 +266,8 @@ def enter():
     server.blocks.append(cave_rock(2375, 225))
     server.blocks.append(cave_rock(2425, 225))
     server.blocks.append(cave_rock(2475, 225))
+
+    server.enemys.append(Goomba(2400, 275))
 
     server.ornblocks.append(cave_rock(2525, 225))
     server.ornblocks.append(cave_rock(2575, 225))
@@ -526,6 +533,8 @@ def enter():
     server.ornblocks.append(cave_rock(4775, 25))
     server.ornblocks.append(cave_rock(4775, 25))
 
+    server.enemys.append(Hammer_bro(4200, 425))
+
     server.blocks.append(cave_rock(3975, 375))
     server.blocks.append(cave_rock(4025, 375))
     server.blocks.append(cave_rock(4075, 375))
@@ -552,6 +561,7 @@ def enter():
     server.ornblocks.append(mid_bottom(4775, 425))
 
     game_world.add_object(server.character, 1)
+    game_world.add_objects(server.enemys, 1)
     game_world.add_objects(server.blocks, 0)
     game_world.add_objects(server.ornblocks, 0)
     game_world.add_objects(server.objects, 1)
