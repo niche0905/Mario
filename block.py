@@ -346,6 +346,82 @@ class mid_right:
     def hit(self):
         pass
 
+class pipe_top:
+    image = None
+    def __init__(self, x = 750, y = 350):
+        if pipe_top.image == None:
+            pipe_top.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        pipe_top.image.clip_draw(490, 132, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
+class pipe_bottom:
+    image = None
+    def __init__(self, x = 750, y = 300):
+        if pipe_bottom.image == None:
+            pipe_bottom.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        pipe_bottom.image.clip_draw(490, 100, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
+class mid_top:
+    image = None
+    def __init__(self, x = 750, y = 350):
+        if mid_top.image == None:
+            mid_top.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        mid_top.image.clip_draw(522, 132, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
+class mid_bottom:
+    image = None
+    def __init__(self, x = 750, y = 300):
+        if mid_bottom.image == None:
+            mid_bottom.image = load_image('blocks.png')
+        self.x, self.y, self.width, self.height = x, y, 50, 50
+
+    def update(self):
+        pass
+
+    def draw(self):
+        mid_bottom.image.clip_draw(522, 100, 28, 28, self.x - server.camera_pivot, self.y, self.width, self.height)
+
+    def get_bb(self):
+        return self.x - self.width / 2, self.y - self.height / 2, self.x + self.width / 2, self.y + self.height / 2
+
+    def hit(self):
+        pass
+
 class cave_rock:
     image = None
     def __init__(self, x = 50, y = 450):
